@@ -32,8 +32,7 @@
           </div>
         </FormItem>
         <FormItem prop="content" label="奖品内容:">
-         <my-wangeditor v-bind:updateContent="addPrize.content" v-on:editorContent="getAddEditor"></my-wangeditor>
-         <!--  <div id="addPrizeContentEditor" style="text-align:left"></div> -->
+            <my-wangeditor v-bind:type="{add:'add'}" v-on:editorContent="getAddEditor"></my-wangeditor>
         </FormItem>
       </Form>
       <div slot='footer'>
@@ -72,7 +71,7 @@
           </div>
         </FormItem>
         <FormItem prop="content" label="奖品内容:">
-          <!-- <my-wangeditor v-bind:updateContent="updatePrize.content" v-on:editorContent="getUpdateEditor"></my-wangeditor> -->
+          <my-wangeditor   v-bind:type="{update:'update'}" v-bind:updateContent="updatePrize.content" v-on:editorContent="getUpdateEditor"></my-wangeditor>
         </FormItem>
       </Form>
       <div slot='footer'>
@@ -250,10 +249,12 @@ export default {
     },
      //获取增加的编辑器内容
     getAddEditor(data){
+      console.log(data)
       this.addPrize.content=data
     },
     //获取修改的编辑器内容
     getUpdateEditor(data){
+      console.log(data)
       this.updatePrize.content=data
     },
   //获取列表

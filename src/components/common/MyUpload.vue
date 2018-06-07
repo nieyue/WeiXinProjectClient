@@ -131,6 +131,7 @@ export default {
         defaultUpload: {  
             handler(newValue, oldValue) {  
             this.uploadList=[]
+            //console.log(newValue)
             if(newValue){
                 this.uploadList.push({
                     status:'finished',
@@ -140,7 +141,7 @@ export default {
                 })
             }
             },
-        　//　deep: true  
+        　　deep: true  
         }, 
 　　} , 
   mounted () {
