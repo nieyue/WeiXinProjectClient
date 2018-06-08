@@ -23,13 +23,13 @@
         //获取父组件的数据 
     type: {  
     　　handler(newValue, oldValue) { 
-        if(newValue&&newValue.add=='add'){
+       // if(newValue&&newValue.add=='add'){
         //console.log(this.editorId)
         if(!this.editor){
+            console.log(1111)
             this.init(this.editorId) 
         }
-
-        }
+       // }
         },
     　　deep: true  
     }, 
@@ -38,7 +38,11 @@
         handler(newValue, oldValue) { 
             // console.log(newValue) 
        // console.log(this.type)
-        if(this.type&&this.type.add!='add'){
+       if(!this.type){
+           throw new Error("type类型缺失")
+       }
+       //不存在或者不是add就是更新
+        if(this.type.add!='add'){
             this.update()
          }else{
              this.add()

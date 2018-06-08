@@ -109,8 +109,10 @@ import TopBar from '@/components/common/TopBar'
               this.loading = false
               if (res.data.code === 200) {
                 this.$Message.success(res.data.msg)
+                
                 sessionStorage.setItem("account",JSON.stringify(res.data.data[0]))
-                this.$router.push('/main/welcome/'+this.business.getAccount().accountId)
+                this.$router.push('/main/welcome/'+JSON.stringify(this.pathParams))
+              
               } else {
                 this.$Message.error(res.data.msg)
                 this.loading = false
@@ -129,7 +131,7 @@ import TopBar from '@/components/common/TopBar'
         //console.log(111111111)
         this.islogin=islogin;
         if(islogin){
-          this.$router.push("/main/welcome/"+this.business.getAccount().accountId)
+          this.$router.push("/main/welcome/"+JSON.stringify(this.pathParams))
         }else{
           //获取验证码
           this.getValidCode();

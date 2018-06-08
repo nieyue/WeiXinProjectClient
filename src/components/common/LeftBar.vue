@@ -65,13 +65,6 @@
       return {
           //菜单
           menu:{},
-          //路径参数
-          pathParams:{
-            currentPage:1,//当前页
-            accountId:this.business.getAccount().accountId
-          },
-          //是否超级管理员,默认不是
-          isSuperAdmin:this.business.getIsSuperAdmin(),
           //活动的菜单，即显示菜单
           menuActiveName:'/main/articeCate'
        
@@ -105,6 +98,12 @@
      }
     },
     created(){
+        //判断是否超级管理员
+        this.isSuperAdmin=this.business.getIsSuperAdmin()
+        this.pathParams={
+          currentPage:1,//当前页
+          accountId:this.business.getAccount().accountId  
+        }
         this.initMenu();
     //this.isSuperAdmin= this.business.getIsSuperAdmin();
     //监听点击返回

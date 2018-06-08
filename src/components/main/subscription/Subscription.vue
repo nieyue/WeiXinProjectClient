@@ -292,7 +292,7 @@ export default {
      * p.listUrl 列表url
      * p.list 返回列表
      */
-        //根据文章id获取数据
+        //根据id获取数据
     this.params.accountId=JSON.parse(this.$route.params.pathParams).accountId
      this.axiosbusiness.getList(this,{
        countUrl:'/subscription/count',
@@ -307,7 +307,7 @@ export default {
 	 add (params) {
       this.addSubscriptionModel = true
       this.addSubscription={
-           accountId:JSON.parse(sessionStorage.getItem("account")).accountId,
+           accountId:JSON.parse(this.$route.params.pathParams).accountId,
            imgAddress:''
 			}
     },

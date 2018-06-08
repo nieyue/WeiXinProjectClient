@@ -71,7 +71,7 @@
           </div>
         </FormItem>
         <FormItem prop="content" label="奖品内容:">
-          <my-wangeditor   v-bind:type="{update:'update'}" v-bind:updateContent="updatePrize.content" v-on:editorContent="getUpdateEditor"></my-wangeditor>
+          <my-wangeditor  v-bind:type="{update:'update'}" v-bind:updateContent="updatePrize.content" v-on:editorContent="getUpdateEditor"></my-wangeditor>
         </FormItem>
       </Form>
       <div slot='footer'>
@@ -367,6 +367,8 @@ export default {
       }
     }, 
   created () {
+                console.log(this.isSuperAdmin)
+    
     this.selectPage(JSON.parse(this.$route.params.pathParams).currentPage)
   },
   mounted () {

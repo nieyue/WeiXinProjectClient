@@ -34,6 +34,13 @@ Vue.component("my-upload",MyUpload)
 Vue.component("my-wangeditor",MyWangeditor)
 //全局监听事件
 Vue.prototype.Hub = new Vue();
+
+//是否超级管理员,默认不是
+Vue.prototype.isSuperAdmin=false
+//路径参数
+Vue.prototype.pathParams={
+  currentPage:1,//当前页
+}
 new Vue({
   el: '#app',
   router,

@@ -524,6 +524,42 @@ export default {
           align:'center',
           render: (h, params) => {
             var marginstyle="2px"
+            var varhh10=  h('Button', {
+                props: {
+                  type: 'dashed',
+                  size: 'small'
+                },
+                style: {
+                  margin: marginstyle
+                },
+                on: {
+                  click: () => {
+                   let  pp=JSON.stringify({
+                      currentPage:1,//当前页
+                      accountId:params.row.accountId
+                    });
+                    this.$router.push('/main/sign/'+pp);
+                  }
+                }
+              }, '签到');
+            var varhh11=  h('Button', {
+                props: {
+                  type: 'ghost',
+                  size: 'small'
+                },
+                style: {
+                  margin: marginstyle
+                },
+                on: {
+                  click: () => {
+                    let  pp=JSON.stringify({
+                      currentPage:1,//当前页
+                      accountId:params.row.accountId
+                    });
+                    this.$router.push('/main/signRecord/'+pp);
+                  }
+                }
+              }, '签到记录');
             var varhh20=  h('Button', {
                 props: {
                   type: 'primary',
@@ -554,6 +590,10 @@ export default {
               }, '删除');
             	var s=h("div","");
 			s=h("div",[
+        h("div",[
+           varhh10
+           ,varhh11
+        ]),
         h("div",[
            varhh20
            //,varhh21

@@ -13,6 +13,7 @@ import Account from '@/components/main/account/Account'
 import Welcome from '@/components/main/config/Welcome'
 import Subscription from '@/components/main/subscription/Subscription'
 import Prize from '@/components/main/sign/Prize'
+import Sign from '@/components/main/sign/Sign'
 import Role from '@/components/main/rolePermission/Role'
 import Permission from '@/components/main/rolePermission/Permission'
 import RolePermission from '@/components/main/rolePermission/RolePermission'
@@ -52,6 +53,11 @@ const router= new Router({
           path: 'prize/:pathParams',
           name: '奖品',
           component: Prize
+        },
+        {
+          path: 'sign/:pathParams',
+          name: '签到',
+          component: Sign
         },
         {
           path: 'merSearch',
