@@ -1,38 +1,37 @@
-<!--奖品管理 -->
+<!--客服消息文章管理 -->
 <template>
     <div class="body-wrap">
     <div class="body-btn-wrap">
-      <Button type='primary'  @click='add'>增加奖品</Button>
+      <Button type='primary'  @click='add'>增加客服消息文章</Button>
     <!-- qa -->
     </div>
 		 <!--新增 -->
-     <Modal v-model="addPrizeModel"
-           title="新增奖品管理"
+     <Modal v-model="addKfArticleModel"
+           title="新增客服消息文章管理"
            :closable="false"
            :mask-closable="false"
              width="1000px"
     >
-      <Form ref="addPrize" :model="addPrize" :label-width="100" label-position="right"  :rules="addPrizeRules">
-        <FormItem prop="dayNumber" label="连续天数:">
-            <InputNumber :max="1000000000" :min="1"  :precision='0'  v-model="addPrize.dayNumber"></InputNumber>
-        </FormItem>
-        <FormItem prop="name" label="奖品名:">
-          <Input type="text" v-model="addPrize.name" placeholder="奖品名">
+      <Form ref="addKfArticle" :model="addKfArticle" :label-width="100" label-position="right"  :rules="addKfArticleRules">
+        <FormItem prop="title" label="图文消息的标题:">
+          <Input type="text" v-model="addKfArticle.title" placeholder="图文消息的标题">
           </Input>
         </FormItem>
-        <FormItem prop="number" label="奖品数量:">
-            <InputNumber :max="1000000000" :min="1"  :precision='0'  v-model="addPrize.number"></InputNumber>
+        <FormItem prop="description" label="图文消息的描述:">
+          <Input type="text" v-model="addKfArticle.description" placeholder="图文消息的描述">
+          </Input>
         </FormItem>
-        <FormItem prop="imgAddress" label="奖品图片(上传或者填写):" id="addImgAddressBox">
-         <my-upload :defaultUpload="addPrize.imgAddress" @uploadList="getAddImgAddress"></my-upload> 
+        <FormItem prop="url" label="图文消息被点击后跳转的链接:">
+          <Input type="text" v-model="addKfArticle.url" placeholder="图文消息被点击后跳转的链接">
+          </Input>
+        </FormItem>
+        <FormItem prop="picurl" label="图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80:" >
+         <my-upload :defaultUpload="addKfArticle.picurl" @uploadList="getAddImgAddress"></my-upload> 
           <div>
-            <Input type="text" v-model="addPrize.imgAddress" placeholder="url">
+            <Input type="text" v-model="addKfArticle.picurl" placeholder="url">
           </Input>
-             <img :src="addPrize.imgAddress"  style='height:200px;width:300px;'alt="">
+             <img :src="addKfArticle.picurl"  style='height:200px;width:300px;'alt="">
           </div>
-        </FormItem>
-        <FormItem prop="content" label="奖品内容:">
-            <my-wangeditor  :content="addPrize.content" @getWangEditorContent="getAddEditor"></my-wangeditor>
         </FormItem>
       </Form>
       <div slot='footer'>
@@ -45,33 +44,32 @@
     </Modal>
     <!--新增end -->
 		 <!--修改 -->
-     <Modal v-model="updatePrizeModel"
-           title="修改奖品管理"
+     <Modal v-model="updateKfArticleModel"
+           title="修改客服消息文章管理"
            :closable="false"
            :mask-closable="false"
              width="1000px"
     >
-      <Form ref="updatePrize" :model="updatePrize" :label-width="100" label-position="right"  :rules="updatePrizeRules">
-       <FormItem prop="dayNumber" label="连续天数:">
-            <InputNumber :max="1000000000" :min="1"  :precision='0'  v-model="updatePrize.dayNumber"></InputNumber>
-        </FormItem>
-        <FormItem prop="name" label="奖品名:">
-          <Input type="text" v-model="updatePrize.name" placeholder="奖品名">
+      <Form ref="updateKfArticle" :model="updateKfArticle" :label-width="100" label-position="right"  :rules="updateKfArticleRules">
+        <FormItem prop="title" label="图文消息的标题:">
+          <Input type="text" v-model="updateKfArticle.title" placeholder="图文消息的标题">
           </Input>
         </FormItem>
-        <FormItem prop="number" label="奖品数量:">
-            <InputNumber :max="1000000000" :min="1" :precision='0'  v-model="updatePrize.number"></InputNumber>
+        <FormItem prop="description" label="图文消息的描述:">
+          <Input type="text" v-model="updateKfArticle.description" placeholder="图文消息的描述">
+          </Input>
         </FormItem>
-        <FormItem prop="imgAddress" label="奖品图片(上传或者填写):" id="updateImgAddressBox">
-          <my-upload :defaultUpload="updatePrize.imgAddress" @uploadList="getUpdateImgAddress"></my-upload> 
+        <FormItem prop="url" label="图文消息被点击后跳转的链接:">
+          <Input type="text" v-model="updateKfArticle.url" placeholder="图文消息被点击后跳转的链接">
+          </Input>
+        </FormItem>
+        <FormItem prop="picurl" label="图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80:" >
+         <my-upload :defaultUpload="updateKfArticle.picurl" @uploadList="getUpdateImgAddress"></my-upload> 
           <div>
-            <Input type="text" v-model="updatePrize.imgAddress" placeholder="url">
+            <Input type="text" v-model="updateKfArticle.picurl" placeholder="url">
           </Input>
-             <img :src="updatePrize.imgAddress"  style='height:200px;width:300px;'alt="">
+             <img :src="updateKfArticle.picurl"  style='height:200px;width:300px;'alt="">
           </div>
-        </FormItem>
-        <FormItem prop="content" label="奖品内容:">
-          <my-wangeditor :content="updatePrize.content" @getWangEditorContent="getUpdateEditor"></my-wangeditor>
         </FormItem>
       </Form>
       <div slot='footer'>
@@ -83,7 +81,7 @@
       </div>
     </Modal>
     <!--修改end -->
-      <Table border :columns='prizeColumns' :data='prizeList' ref='table' size="small"></Table>
+      <Table border :columns='kfArticleColumns' :data='kfArticleList' ref='table' size="small"></Table>
         <div style='display: inline-block;float: right; margin-top:10px;'>
         <Page style='margin-right:10px;' :current="params.currentPage"  :total='params.total' :pageSize='params.pageSize' ref='page' :show-total='true'   @on-change='selectPage' show-elevator ></Page>
       </div>
@@ -91,7 +89,7 @@
 </template>
 <script>
 export default {
-  name: 'Prize',
+  name: 'KfArticle',
   data () {
     return {
         params:{
@@ -102,29 +100,29 @@ export default {
             total:0//总数
         },
 			//增加参数
-			addPrizeModel:false,
+			addKfArticleModel:false,
 			addLoading:false,
-			addPrizeRules: {
-                name: [
-                    {required: true, message: '奖品名为必填项', trigger: 'blur'}
+			addKfArticleRules: {
+                url: [
+                    {type:"url",required: true, message: '必填项', trigger: 'blur'}
                     ],
                 },
-			addPrize:{
+			addKfArticle:{
 			},
 			//修改参数
-			updatePrizeModel:false,
+			updateKfArticleModel:false,
 			updateLoading:false,
-			updatePrizeRules: {
-                name: [
-                    {required: true, message: '奖品名为必填项', trigger: 'blur'}
+			updateKfArticleRules: {
+                url: [
+                    {type:"url",required: true, message: '必填项', trigger: 'blur'}
                     ],
                 },
-			updatePrize:{
+			updateKfArticle:{
       },
         //删除参数
-        deletePrize:{},
-	    prizeList: [],
-	    prizeColumns: [
+        deleteKfArticle:{},
+	    kfArticleList: [],
+	    kfArticleColumns: [
         {
           title: '序号',
           align:'center',
@@ -134,33 +132,33 @@ export default {
           }
         },
         {
-          title: '奖品id',
-          key: 'prizeId',
+          title: '客服消息文章id',
+          key: 'kfArticleId',
           align:'center'
         },
         {
-            title:'连续天数',
-            key:'dayNumber',
+            title:'图文消息的标题',
+            key:'title',
             align:'center'
         },
         {
-        	title:'奖品名称',
-        	key:'name',
+        	title:'图文消息的描述',
+        	key:'description',
             align:'center'
         },
         {
-        	title:'奖品数量',
-        	key:'number',
+        	title:'图文消息被点击后跳转的链接',
+        	key:'url',
             align:'center'
         },
         {
-        	title:'奖品图片',
-        	//key:'imgAddress',
+        	title:'图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80',
+        	//key:'picurl',
           align:'center',
           render: (h, params) => {
             return h('img', {
               attrs: {
-                src: params.row.imgAddress||''
+                src: params.row.picurl||''
               },
               style: {
                 width: '80px'
@@ -190,9 +188,6 @@ export default {
                   type: 'primary',
                   size: 'small'
                 },
-                style: {
-                  marginLeft: '10px'
-                },
                 on: {
                   click: () => {
                     this.update(params.row)
@@ -203,9 +198,6 @@ export default {
                 props: {
                   type: 'error',
                   size: 'small'
-                },
-                style: {
-                  marginLeft: '10px'
                 },
                 on: {
                   click: () => {
@@ -232,28 +224,18 @@ export default {
       //构造path
      let pp=JSON.stringify({
        currentPage:currentPage,
-        accountId:JSON.parse(this.$route.params.pathParams).accountId,
-        subscriptionId:JSON.parse(this.$route.params.pathParams).subscriptionId
+        kfMessageId:JSON.parse(this.$route.params.pathParams).kfMessageId,
      })
-     //console.log(this.$route.path.substr(0,this.$route.path.indexOf(this.$route.params.pathParams)))
       this.$router.push(this.$route.path.substr(0,this.$route.path.indexOf(this.$route.params.pathParams))+pp);
       this.getList()
     },
      //获取增加的图片
     getAddImgAddress(data){
-      this.addPrize.imgAddress=data[0].url
+      this.addKfArticle.picurl=data[0].url
     },
     //获取修改的图片
     getUpdateImgAddress(data){
-      this.updatePrize.imgAddress=data[0].url
-    },
-     //获取增加的编辑器内容
-    getAddEditor(data){
-      this.addPrize.content=data
-    },
-    //获取修改的编辑器内容
-    getUpdateEditor(data){
-      this.updatePrize.content=data
+      this.updateKfArticle.picurl=data[0].url
     },
   //获取列表
    getList () {
@@ -264,29 +246,25 @@ export default {
      * p.listUrl 列表url
      * p.data 返回列表
      */
-     this.params.accountId=JSON.parse(this.$route.params.pathParams).accountId
-     this.params.subscriptionId=JSON.parse(this.$route.params.pathParams).subscriptionId
+     this.params.kfMessageId=JSON.parse(this.$route.params.pathParams).kfMessageId
      this.axiosbusiness.getList(this,{
-       countUrl:'/prize/count',
-       listUrl:'/prize/list',
-       data:'prizeList'
+       countUrl:'/kfArticle/count',
+       listUrl:'/kfArticle/list',
+       data:'kfArticleList'
      },this.params)
     },
   //增加
 	 add (params) {
-      this.addPrizeModel = true
-      this.addPrize={
-          dayNumber:1,
-          number:1,
-          imgAddress:'',
-          content:''
+      this.addKfArticleModel = true
+      this.addKfArticle={
+          picurl:'',
       }
     },
 		//增加取消
 		 addCancel () {
       if (!this.addLoading) {
-        this.addPrizeModel = false
-        this.$refs.addPrize.resetFields()
+        this.addKfArticleModel = false
+        this.$refs.addKfArticle.resetFields()
       }
     },
 		//增加确定
@@ -300,27 +278,28 @@ export default {
      * p.loading loading
      * p.showModel 界面模型显示隐藏
      */
+    this.addKfArticle.kfMessageId=JSON.parse(this.$route.params.pathParams).kfMessageId
     this.axiosbusiness.add(this,{
-      ref:'addPrize',
-      url:'/prize/add',
-      requestObject:'addPrize',
+      ref:'addKfArticle',
+      url:'/kfArticle/add',
+      requestObject:'addKfArticle',
       loading:'addLoading',
-      showModel:'addPrizeModel'
+      showModel:'addKfArticleModel'
     })
     },
 	 update (params) {
-      this.updatePrizeModel = true
+      this.updateKfArticleModel = true
       //获取修改实体
       this.axiosbusiness.get(this,{
-         url:'/prize/load?prizeId='+params.prizeId,
-         data:'updatePrize',
+         url:'/kfArticle/load?kfArticleId='+params.kfArticleId,
+         data:'updateKfArticle',
        })
     },
 		//修改取消
 		 updateCancel () {
       if (!this.updateLoading) {
-        this.updatePrizeModel = false
-        this.$refs.updatePrize.resetFields()
+        this.updateKfArticleModel = false
+        this.$refs.updateKfArticle.resetFields()
       }
     },
 		//修改确定
@@ -335,11 +314,11 @@ export default {
      * p.showModel 界面模型显示隐藏
      */
     this.axiosbusiness.update(this,{
-      ref:'updatePrize',
-      url:'/prize/update',
-      requestObject:'updatePrize',
+      ref:'updateKfArticle',
+      url:'/kfArticle/update',
+      requestObject:'updateKfArticle',
       loading:'updateLoading',
-      showModel:'updatePrizeModel'
+      showModel:'updateKfArticleModel'
     })
  
     },
@@ -351,12 +330,12 @@ export default {
      * p.url 修改url
      * p.requestObject 请求参数对象
      */
-    this.deletePrize={
-      "prizeId":params.prizeId
+    this.deleteKfArticle={
+      "kfArticleId":params.kfArticleId
     };
     this.axiosbusiness.delete(this,{
-      url:'/prize/delete',
-      requestObject:'deletePrize'
+      url:'/kfArticle/delete',
+      requestObject:'deleteKfArticle'
     })
     }
   },
@@ -367,8 +346,6 @@ export default {
       }
     }, 
   created () {
-                console.log(this.isSuperAdmin)
-    
     this.selectPage(JSON.parse(this.$route.params.pathParams).currentPage)
   },
   mounted () {

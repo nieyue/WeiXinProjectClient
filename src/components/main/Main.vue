@@ -37,6 +37,9 @@ import RightBody from '@/components/common/RightBody'
      getIslogin(islogin){
        console.log(islogin)
      }
+    },
+    created(){
+       
     }
   }
 </script>

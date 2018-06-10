@@ -21,8 +21,10 @@
                         <Icon type="pizza"></Icon>
                         签到管理
                     </template>
+                    <MenuItem :name="menu.sign.sign">签到</MenuItem>
+                    <MenuItem :name="menu.sign.signRecord">签到记录</MenuItem>
                     <MenuItem :name="menu.sign.prize">奖品</MenuItem>
-                    <MenuItem name="/main/sign">签到</MenuItem>
+                    <MenuItem :name="menu.sign.signPrize">签到奖品</MenuItem>
                 </Submenu>
                 <Submenu name="account">
                     <template slot="title">
@@ -88,7 +90,10 @@
             },
              //签到
             sign:{
-                 prize:"/main/prize/"+pp
+                 sign:"/main/sign/"+pp,
+                 signRecord:"/main/signRecord/"+pp,
+                 prize:"/main/prize/"+pp,
+                 signPrize:"/main/signPrize/"+pp,
             },
              //角色权限
             rolePermission:{
@@ -97,8 +102,11 @@
          }
      }
     },
+    watch:{
+
+    },
     created(){
-        //判断是否超级管理员
+       //判断是否超级管理员
         this.isSuperAdmin=this.business.getIsSuperAdmin()
         this.pathParams={
           currentPage:1,//当前页

@@ -8,48 +8,23 @@
   export default {
     name: 'MyWangeditor',
       props:{
-      //父组件传默认的值,Object 
-      type:{
-          type:Object,
-          required:false
-      },
       //父组件传默认的值,string 
-      updateContent:{
+      content:{
           type:String,
           required:false
       },
   },
     watch: { 
         //获取父组件的数据 
-    type: {  
+    content: {  
     　　handler(newValue, oldValue) { 
-       // if(newValue&&newValue.add=='add'){
-        //console.log(this.editorId)
         if(!this.editor){
-            console.log(1111)
             this.init(this.editorId) 
         }
-       // }
+         this.update()
         },
     　　deep: true  
-    }, 
-        //获取父组件的数据 
-    updateContent: {  
-        handler(newValue, oldValue) { 
-            // console.log(newValue) 
-       // console.log(this.type)
-       if(!this.type){
-           throw new Error("type类型缺失")
-       }
-       //不存在或者不是add就是更新
-        if(this.type.add!='add'){
-            this.update()
-         }else{
-             this.add()
-         }
-        },
-    　　deep: true  
-    }, 
+    }
     },
     created(){ 
         window.onload = ()=>{
@@ -61,8 +36,6 @@
         return {
             editorId:"editor"+parseInt(Math.random()*100),
             editor:null,
-            //内容，默认null
-            content:"",
       }
     },
     methods: {
@@ -70,7 +43,6 @@
         init(editorId){
             this.$refs.editor.id=editorId;
             this.editor=new (this.wangeditor)("#"+editorId);
-            console.log(this.editorId)
             //this.editor=new (this.wangeditor)("#editor");
             this.editor.customConfig.zIndex = 100
             this.editor.customConfig.uploadFileName = 'editorUpload'      //给上传的本地图片文件命名的统一名称  
@@ -130,19 +102,13 @@
             }
             this.editor.customConfig.debug = true
             this.editor.customConfig.onchange = (html) =>{
-                this.content=html;
-                this.$emit("editorContent", this.content)
+                this.$emit("getWangEditorContent", html)
             }
             this.editor.create();
             this.editor.txt.html("<p>输入内容...</p>") 
         },
-        add(){
-            this.editor.txt.html("")
-            this.editor.txt.html("<p>输入内容...</p>")
-        },
         update(){
-            this.editor.txt.html("")
-           this.editor.txt.html(this.updateContent)
+           this.editor.txt.html(this.content)
         }
     }
   }

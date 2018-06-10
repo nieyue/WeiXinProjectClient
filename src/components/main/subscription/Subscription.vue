@@ -227,9 +227,6 @@ export default {
                   type: 'primary',
                   size: 'small'
                 },
-                style: {
-                  marginLeft: '10px'
-                },
                 on: {
                   click: () => {
                     this.update(params.row)
@@ -241,19 +238,36 @@ export default {
                   type: 'error',
                   size: 'small'
                 },
-                style: {
-                  marginLeft: '10px'
-                },
                 on: {
                   click: () => {
                     this.delete(params.row)
                   }
                 }
               }, '删除');
+            var varhh3=  h('Button', {
+                props: {
+                  type: 'ghost',
+                  size: 'small'
+                },
+                on: {
+                  click: () => {
+                     let  pp=JSON.stringify({
+                      currentPage:1,//当前页
+                      subscriptionId:params.row.subscriptionId
+                    });
+                    this.$router.push('/main/kfMessage/'+pp);
+                  }
+                }
+              }, '客服消息');
             	var s=h("div","");
-			s=h("div",[
-              varhh1,
-              varhh2
+              s=h("div",[
+                h("div",[
+                  varhh3
+                ]),
+                h("div",[
+                      varhh1,
+                      varhh2
+                ])
             ]);
             return s;
           }

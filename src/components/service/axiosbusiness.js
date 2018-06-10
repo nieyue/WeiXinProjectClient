@@ -52,11 +52,11 @@ export default {
                  withCredentials: true
                  }).
                  then(res => {
-                 console.log(res)
+                 //console.log(res)
                  if (res.data.code == 200) {
                      //变量list代替所有
                      $this[p.data]=res.data.data;
-                     console.log($this[p.data])
+                    // console.log($this[p.data])
                      if(typeof p.success=='function'){
                          p.success( $this[p.data]);
                         }
@@ -113,8 +113,7 @@ export default {
      * p.success 成功回调
      */
     add($this,p){
-        $this.$refs[p.ref].validate((valid) => {
-            if (valid) {
+        let u=()=>{
             $this[p.loading] = true
             $this.axios({
               method:"post",
@@ -138,10 +137,19 @@ export default {
                 $this.$Message.error(res.data.msg)
                 $this[p.loading]  = false
             })
-          } else {
-                $this.$Message.error('验证失败')
-          }
-        })
+        }
+         //不存在就默认验证成功，即不需验证
+         if(!p.ref){
+            u();
+        }else{
+            $this.$refs[p.ref].validate((valid) => {
+                if (valid) {
+                    u();
+                } else {
+                        $this.$Message.error('验证失败')
+                }
+              })
+        }
     },
     /**
      * 修改
@@ -154,35 +162,43 @@ export default {
      * p.success 成功回调
      */
     update($this,p){
-        $this.$refs[p.ref].validate((valid) => {
-            if (valid) {
-                $this[p.loading] = true
-                $this.axios({
-                    method:"post",
-                    url:p.url,
-                    data:$this.Qs.stringify($this[p.requestObject]),
-                    withCredentials: true
-                }).then(res => {
-                if (res.data.code === 200) {
-                    $this[p.showModel] = false
-                    $this.$Message.success(res.data.msg)
-                    if(typeof p.success=='function'){
-                        p.success();
-                    }else{
-                        $this.getList()
-                    }
-                }else {
-                    $this.$Message.error(res.data.msg)
+        let u=()=>{
+            $this[p.loading] = true
+            $this.axios({
+                method:"post",
+                url:p.url,
+                data:$this.Qs.stringify($this[p.requestObject]),
+                withCredentials: true
+            }).then(res => {
+            if (res.data.code === 200) {
+                $this[p.showModel] = false
+                $this.$Message.success(res.data.msg)
+                if(typeof p.success=='function'){
+                    p.success();
+                }else{
+                    $this.getList()
                 }
-                    $this[p.loading] = false
-              }).catch(res => {
-                    $this.$Message.error(res.data.msg)
-                    $this[p.loading] = false
-              })
-            } else {
-                    $this.$Message.error('验证失败')
+            }else {
+                $this.$Message.error(res.data.msg)
             }
+                $this[p.loading] = false
+          }).catch(res => {
+                $this.$Message.error(res.data.msg)
+                $this[p.loading] = false
           })
+        }
+        //不存在就默认验证成功，即不需验证
+        if(!p.ref){
+            u();
+        }else{
+            $this.$refs[p.ref].validate((valid) => {
+                if (valid) {
+                    u();
+                } else {
+                        $this.$Message.error('验证失败')
+                }
+              })
+        }
     },
     /**
      * 删除
@@ -220,5 +236,44 @@ export default {
                 $this.$Message.info('取消成功');
             }
         })
-    }
+    },
+     /**
+     * post发送请求
+     * $this  vue组件
+     * p.url 修改url
+     * p.title 名称
+     * p.content 请求内容
+     * p.requestObject 请求参数对象
+     * p.success 成功回调
+     */
+    post($this,p) {
+        $this.$Modal.confirm({
+            title: p.title||'请求',
+            content:  p.content||"确定请求吗？",
+            onOk: () => {
+              $this.axios({
+                      method:"post",
+                      url:p.url,
+                      data:$this.Qs.stringify($this[p.requestObject]),
+                      withCredentials: true
+                      }).then(res => {
+                      if (res.data.code === 200) {
+                        $this.$Message.success(res.data.msg)
+                        if(typeof p.success=='function'){
+                            p.success();
+                        }else{
+                            $this.getList()
+                        }
+                      }else {
+                        $this.$Message.error(res.data.msg)
+                      }
+                    }).catch(res => {
+                        $this.$Message.error(res.data.msg)
+                    })
+                },
+            onCancel: () => {
+                $this.$Message.info('取消成功');
+            }
+        })
+   },
  }

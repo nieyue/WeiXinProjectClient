@@ -2,18 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/components/Index'
 import Main from '@/components/main/Main'
-import MerSearch from '@/components/main/mer/MerSearch'
-import MerCommon from '@/components/main/mer/MerCommon'
-import MerCate from '@/components/main/mer/MerCate'
-import Mer from '@/components/main/mer/Mer'
-import MerCardCipher from '@/components/main/mer/MerCardCipher'
-import MerNotice from '@/components/main/mer/MerNotice'
-import MerImg from '@/components/main/mer/MerImg'
 import Account from '@/components/main/account/Account'
 import Welcome from '@/components/main/config/Welcome'
 import Subscription from '@/components/main/subscription/Subscription'
+import KfMessage from '@/components/main/message/kfMessage'
+import KfArticle from '@/components/main/message/KfArticle'
 import Prize from '@/components/main/sign/Prize'
 import Sign from '@/components/main/sign/Sign'
+import SignRecord from '@/components/main/sign/SignRecord'
+import SignPrize from '@/components/main/sign/SignPrize'
 import Role from '@/components/main/rolePermission/Role'
 import Permission from '@/components/main/rolePermission/Permission'
 import RolePermission from '@/components/main/rolePermission/RolePermission'
@@ -23,6 +20,7 @@ Vue.use(Router)
 
 const router= new Router({
  // export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -50,6 +48,16 @@ const router= new Router({
           component: Subscription
         },
         {
+          path: 'kfMessage/:pathParams',
+          name: '客服消息',
+          component: KfMessage
+        },
+        {
+          path: 'kfArticle/:pathParams',
+          name: '客服消息文章',
+          component: KfArticle
+        },
+        {
           path: 'prize/:pathParams',
           name: '奖品',
           component: Prize
@@ -60,39 +68,14 @@ const router= new Router({
           component: Sign
         },
         {
-          path: 'merSearch',
-          name: '商品搜索',
-          component: MerSearch
+          path: 'signRecord/:pathParams',
+          name: '签到记录',
+          component: SignRecord
         },
         {
-          path: 'merCommon',
-          name: '商品公用',
-          component: MerCommon
-        },
-        {
-          path: 'merCate',
-          name: '商品类型',
-          component: MerCate
-        },
-        {
-          path: 'mer',
-          name: '商品',
-          component: Mer
-        },
-        {
-          path: 'merCardCipher/:merId',
-          name: '商品卡密',
-          component: MerCardCipher
-        },
-        {
-          path: 'merNotice/:merId',
-          name: '商品公告',
-          component: MerNotice
-        },
-        {
-          path: 'merImg/:merId',
-          name: '商品图片',
-          component: MerImg
+          path: 'signPrize/:pathParams',
+          name: '签到奖品',
+          component: SignPrize
         },
         {
           path: 'account',

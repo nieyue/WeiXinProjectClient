@@ -1,22 +1,21 @@
-<!--商品类型管理 -->
+<!--签到记录管理 -->
 <template>
     <div class="body-wrap">
     <div class="body-btn-wrap">
-      <Button type='primary'  @click='add'>增加商品类型</Button>
+  <Button type='primary' v-if="isSuperAdmin"  @click='add'>增加签到记录</Button>
     </div>
 		 <!--新增 -->
-     <Modal v-model="addMerCateModel"
-           title="新增商品类型管理"
+     <Modal v-model="addSignRecordModel"
+           title="新增签到记录管理"
            :closable="false"
            :mask-closable="false"
     >
-      <Form ref="addMerCate" :model="addMerCate" :label-width="100" label-position="right"  :rules="addMerCateRules">
-        <FormItem prop="name" label="名称:">
-          <Input type="text" v-model="addMerCate.name" placeholder="名称">
-          </Input>
+      <Form ref="addSignRecord" :model="addSignRecord" :label-width="100" label-position="right"  :rules="addSignRecordRules">
+        <FormItem prop="integral" label="奖励积分:">
+            <InputNumber :max="1000000000" :min="0"  :precision='2'  v-model="addSignRecord.integral"></InputNumber>
         </FormItem>
-        <FormItem prop="summary" label="简介:">
-          <Input type="textarea" v-model="addMerCate.summary" :autosize="{minRows: 2,maxRows: 5}"  placeholder="简介">
+         <FormItem prop="subscriptionId" label="公众号Id:">
+          <Input type="text" v-model="addSignRecord.subscriptionId" placeholder="公众号Id">
           </Input>
         </FormItem>
       </Form>
@@ -30,21 +29,20 @@
     </Modal>
     <!--新增end -->
 		 <!--修改 -->
-     <Modal v-model="updateMerCateModel"
-           title="修改商品类型管理"
+     <Modal v-model="updateSignRecordModel"
+           title="修改签到记录管理"
            :closable="false"
            :mask-closable="false"
     >
-      <Form ref="updateMerCate" :model="updateMerCate" :label-width="100" label-position="right"  :rules="updateMerCateRules">
-        <FormItem prop="name" label="名称:">
-          <Input type="text" v-model="updateMerCate.name" placeholder="名称">
+      <Form ref="updateSignRecord" :model="updateSignRecord" :label-width="100" label-position="right"  :rules="updateSignRecordRules">
+        <FormItem prop="integral" label="奖励积分:">
+            <InputNumber :max="1000000000" :min="0"  :precision='2'  v-model="updateSignRecord.integral"></InputNumber>
+        </FormItem>
+        <FormItem prop="subscriptionId" label="公众号Id:">
+          <Input type="text" v-model="updateSignRecord.subscriptionId" placeholder="公众号Id">
           </Input>
         </FormItem>
-         <FormItem prop="summary" label="简介:">
-          <Input type="textarea" v-model="updateMerCate.summary" :autosize="{minRows: 2,maxRows: 5}"  placeholder="简介">
-          </Input>
-        </FormItem>
-      </Form>
+        </Form>
       <div slot='footer'>
         <Button type='ghost' @click='updateCancel'>取消</Button>
         <Button type='primary' :loading='updateLoading'>
@@ -54,16 +52,16 @@
       </div>
     </Modal>
     <!--修改end -->
-      <Table border  :columns='merCateColumns' :data='merCateList' ref='table' size="small"></Table>
+      <Table border :columns='signRecordColumns' :data='signRecordList' ref='table' size="small"></Table>
         <div style='display: inline-block;float: right; margin-top:10px;'>
-        <Page style='margin-right:10px;' :total='params.total' :pageSize='params.pageSize' ref='page' :show-total='true'   @on-change='selectPage' show-elevator ></Page>
+        <Page style='margin-right:10px;' :current="params.currentPage" :total='params.total' :pageSize='params.pageSize' ref='page' :show-total='true'   @on-change='selectPage' show-elevator ></Page>
       </div>
     </div>
-    
 </template>
 <script>
+
 export default {
-  name: 'MerCate',
+  name: 'SignRecord',
   data () {
     return {
         params:{
@@ -74,30 +72,32 @@ export default {
             total:0//总数
         },
 			//增加参数
-			addMerCateModel:false,
+			addSignRecordModel:false,
 			addLoading:false,
-			addMerCateRules: {
-                name: [
-                    {required: true, message: '名称为必填项', trigger: 'blur'}
+			addSignRecordRules: {
+                integral: [
+                    {type:"number",required: true, message: '必选项', trigger: 'change'}
                     ]
                 },
-			addMerCate:{
+			addSignRecord:{
 			},
 			//修改参数
-			updateMerCateModel:false,
+			updateSignRecordModel:false,
 			updateLoading:false,
-			updateMerCateRules: {
-                name: [
-                    {required: true, message: '名称为必填项', trigger: 'blur'}
+			updateSignRecordRules: {
+                integral: [
+                     {type:"number",required: true, message: '必选项', trigger: 'change'}
                     ]
                 },
-			updateMerCate:{},
-      //删除参数
-      deleteMerCate:{},
-	    merCateList: [],
-	    merCateColumns: [
+			updateSignRecord:{
+      },
+        //删除参数
+        deleteSignRecord:{},
+	    signRecordList:[],
+	    signRecordColumns: [
         {
           title: '序号',
+          width:100,
           align:'center',
           render: (h, params) => {
             return h('span', params.index
@@ -105,31 +105,25 @@ export default {
           }
         },
         {
-          title: '商品类型id',
-          key: 'merCateId',
+          title: '签到记录id',
+          key: 'signRecordId',
           align:'center'
         },
         {
-        	title:'名称',
-            key:'name',
+        	title:'公众号Id',
+        	key:'subscriptionId',
             align:'center'
         },
         {
-        	title:'简介',
-            key:'summary',
-            align:'center',
-             render: (h, params) => {
-                 var summary=params.row.summary==null?'':params.row.summary.length>=20?params.row.summary.substring(0,20)+"...":params.row.summary.substring(0);
-              // console.log(summary.toString())
-                var varhh1=  h('span',summary);
-              return varhh1;  
-             }
+        	title:'奖励积分',
+        	key:'integral',
+            align:'center'
         },
         {
-          title:'修改时间',
-          key:'updateDate',
-          sortable: true,
-          align:'center'
+            title:'签到时间',
+            key:'signDate',
+            sortable: true,
+            align:'center'
         },
 				{
           title: '操作',
@@ -164,11 +158,14 @@ export default {
                   }
                 }
               }, '删除');
-            	var s=h("div","");
-			s=h("div",[
-              varhh1
-              ,varhh2
+                var s=h("div","");
+                console.log(this.isSuperAdmin)
+            if(this.isSuperAdmin){
+                s=h("div",[
+                    varhh1,
+                    varhh2
             ]);
+            }
             return s;
           }
         }
@@ -180,6 +177,13 @@ export default {
     selectPage (currentPage) {
       this.params.currentPage=currentPage;
       this.params.pageNum = (this.params.currentPage-1)*this.params.pageSize+this.params.startNum;
+     //构造path
+     let pp=JSON.stringify({
+       currentPage:currentPage,
+       accountId:JSON.parse(this.$route.params.pathParams).accountId
+     })
+     //console.log(this.$route.path.substr(0,this.$route.path.indexOf(this.$route.params.pathParams)))
+      this.$router.push(this.$route.path.substr(0,this.$route.path.indexOf(this.$route.params.pathParams))+pp);
       this.getList()
     },
   //获取列表
@@ -189,23 +193,28 @@ export default {
      * $this  vue组件
      * p.countUrl 数量url
      * p.listUrl 列表url
-     * p.data 返回列表
+     * p.list 返回列表
      */
+        //根据id获取数据
+    this.params.accountId=JSON.parse(this.$route.params.pathParams).accountId
      this.axiosbusiness.getList(this,{
-       countUrl:'/merCate/count',
-       listUrl:'/merCate/list',
-       data:'merCateList'
+       countUrl:'/signRecord/count',
+       listUrl:'/signRecord/list',
+       data:'signRecordList'
      },this.params)
     },
   //增加
 	 add (params) {
-      this.addMerCateModel = true
+      this.addSignRecordModel = true
+      this.addSignRecord={
+           accountId:JSON.parse(this.$route.params.pathParams).accountId,
+		}
     },
 		//增加取消
 		 addCancel () {
       if (!this.addLoading) {
-        this.addMerCateModel = false
-        this.$refs.addMerCate.resetFields()
+        this.addSignRecordModel = false
+        this.$refs.addSignRecord.resetFields()
       }
     },
 		//增加确定
@@ -220,26 +229,26 @@ export default {
      * p.showModel 界面模型显示隐藏
      */
     this.axiosbusiness.add(this,{
-      ref:'addMerCate',
-      url:'/merCate/add',
-      requestObject:'addMerCate',
+      ref:'addSignRecord',
+      url:'/signRecord/add',
+      requestObject:'addSignRecord',
       loading:'addLoading',
-      showModel:'addMerCateModel'
+      showModel:'addSignRecordModel'
     })
     },
 	 update (params) {
-      this.updateMerCateModel = true
-     //获取修改实体
+      this.updateSignRecordModel = true
+      //获取修改实体
       this.axiosbusiness.get(this,{
-         url:'/merCate/load?merCateId='+params.merCateId,
-         data:'updateMerCate',
+         url:'/signRecord/load?signRecordId='+params.signRecordId,
+         data:'updateSignRecord',
        })
     },
 		//修改取消
 		 updateCancel () {
       if (!this.updateLoading) {
-        this.updateMerCateModel = false
-        this.$refs.updateMerCate.resetFields()
+        this.updateSignRecordModel = false
+        this.$refs.updateSignRecord.resetFields()
       }
     },
 		//修改确定
@@ -253,12 +262,14 @@ export default {
      * p.loading loading
      * p.showModel 界面模型显示隐藏
      */
+    delete this.updateSignRecord.account
+    delete this.updateSignRecord.subscription
     this.axiosbusiness.update(this,{
-      ref:'updateMerCate',
-      url:'/merCate/update',
-      requestObject:'updateMerCate',
+      ref:'updateSignRecord',
+      url:'/signRecord/update',
+      requestObject:'updateSignRecord',
       loading:'updateLoading',
-      showModel:'updateMerCateModel'
+      showModel:'updateSignRecordModel'
     })
  
     },
@@ -270,17 +281,27 @@ export default {
      * p.url 修改url
      * p.requestObject 请求参数对象
      */
-    this.deleteMerCate={
-      "merCateId":params.merCateId
+    this.deleteSignRecord={
+      "signRecordId":params.signRecordId
     };
     this.axiosbusiness.delete(this,{
-      url:'/merCate/delete',
-      requestObject:'deleteMerCate'
+      url:'/signRecord/delete',
+      requestObject:'deleteSignRecord'
     })
     }
   },
+   watch: {
+    //当前页面参数修改动态启动
+      $route (to,from){
+        this.selectPage(JSON.parse(this.$route.params.pathParams).currentPage)
+      }
+    }, 
   created () {
-    this.getList();
+       //判断是否超级管理员
+    this.isSuperAdmin=this.business.getIsSuperAdmin()
+    this.selectPage(JSON.parse(this.$route.params.pathParams).currentPage)
+    //this.getList();
+    
   },
   mounted () {
 

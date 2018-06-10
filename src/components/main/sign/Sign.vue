@@ -321,6 +321,8 @@ export default {
       }
     }, 
   created () {
+    //判断是否超级管理员
+    this.isSuperAdmin=this.business.getIsSuperAdmin()
     this.selectPage(JSON.parse(this.$route.params.pathParams).currentPage)
     //this.getList();
     
