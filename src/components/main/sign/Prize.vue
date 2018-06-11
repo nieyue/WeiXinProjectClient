@@ -191,7 +191,7 @@ export default {
                   size: 'small'
                 },
                 style: {
-                  marginLeft: '10px'
+                 margin: '5px'
                 },
                 on: {
                   click: () => {
@@ -205,7 +205,7 @@ export default {
                   size: 'small'
                 },
                 style: {
-                  marginLeft: '10px'
+                  margin: '5px'
                 },
                 on: {
                   click: () => {
@@ -213,10 +213,33 @@ export default {
                   }
                 }
               }, '删除');
+            var varhh3=  h('Button', {
+                props: {
+                  type: 'info',
+                  size: 'small'
+                },
+                style: {
+                  margin: '5px'
+                },
+                on: {
+                  click: () => {
+                     let  pp=JSON.stringify({
+                      currentPage:1,//当前页
+                      prizeId:params.row.prizeId
+                    });
+                    this.$router.push('/main/signPrize/'+pp);
+                  }
+                }
+              }, '签到奖品');
             	var s=h("div","");
 			s=h("div",[
+        h("div",[
               varhh1,
               varhh2
+        ]),
+        h("div",[
+              varhh3
+        ]),
             ]);
             return s;
           }

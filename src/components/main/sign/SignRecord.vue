@@ -180,7 +180,8 @@ export default {
      //构造path
      let pp=JSON.stringify({
        currentPage:currentPage,
-       accountId:JSON.parse(this.$route.params.pathParams).accountId
+       accountId:JSON.parse(this.$route.params.pathParams).accountId,
+       subscriptionId:JSON.parse(this.$route.params.pathParams).subscriptionId
      })
      //console.log(this.$route.path.substr(0,this.$route.path.indexOf(this.$route.params.pathParams)))
       this.$router.push(this.$route.path.substr(0,this.$route.path.indexOf(this.$route.params.pathParams))+pp);
@@ -197,6 +198,7 @@ export default {
      */
         //根据id获取数据
     this.params.accountId=JSON.parse(this.$route.params.pathParams).accountId
+    this.params.subscriptionId=JSON.parse(this.$route.params.pathParams).subscriptionId
      this.axiosbusiness.getList(this,{
        countUrl:'/signRecord/count',
        listUrl:'/signRecord/list',
@@ -208,6 +210,7 @@ export default {
       this.addSignRecordModel = true
       this.addSignRecord={
            accountId:JSON.parse(this.$route.params.pathParams).accountId,
+           subscriptionId:JSON.parse(this.$route.params.pathParams).subscriptionId,
 		}
     },
 		//增加取消

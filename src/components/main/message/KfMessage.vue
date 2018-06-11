@@ -164,7 +164,7 @@
       </div>
     </Modal>
     <!--修改end -->
-      <Table border :columns='kfMessageColumns' :data='kfMessageList' ref='table' size="small"></Table>
+      <Table border  :columns='kfMessageColumns' :data='kfMessageList' ref='table' size="small"></Table>
         <div style='display: inline-block;float: right; margin-top:10px;'>
         <Page style='margin-right:10px;' :current="params.currentPage"  :total='params.total' :pageSize='params.pageSize' ref='page' :show-total='true'   @on-change='selectPage' show-elevator ></Page>
       </div>
@@ -229,13 +229,14 @@ export default {
         },
         {
           title: '客服消息id',
+          width:100,
           key: 'kfMessageId',
           align:'center'
         },
          {
         	title:'消息类型',
             key:'msgtype',
-             width:100,
+            width:100,
           align:'center',
           render: (h, params) => {
             let msgtypevalue="";
@@ -274,6 +275,7 @@ export default {
         },
         {
             title:'文本消息内容',
+             width:100,
             //key:'content',
             align:'center',
               render: (h, params) => {
@@ -282,57 +284,68 @@ export default {
         },
         {
         	title:'发送的图片/语音/视频/图文消息（点击跳转到图文消息页）的媒体ID',
+         width:100,
         	key:'mediaId',
             align:'center'
         },
         {
         	title:'缩略图/小程序卡片图片的媒体ID，小程序卡片图片建议大小为520*416',
+         width:100,
         	key:'thumbMediaId',
             align:'center'
         },
         {
         	title:'视频消息/音乐消息/小程序卡片的标题',
-        	key:'title',
+        	width:100,
+          key:'title',
             align:'center'
         },
         {
         	title:'视频消息/音乐消息的描述',
+        width:100,
         	key:'description',
             align:'center'
         },
         {
         	title:'音乐链接',
-        	key:'musicurl',
+        	width:100,
+          key:'musicurl',
             align:'center'
         },
         {
         	title:'高品质音乐链接，wifi环境优先使用该链接播放音乐',
-        	key:'hqmusicurl',
+        	width:100,
+          key:'hqmusicurl',
             align:'center'
         },
         {
         	title:'卡卷id',
-        	key:'cardId',
+        	width:100,
+          key:'cardId',
             align:'center'
         },
         {
         	title:'小程序的appid，要求小程序的appid需要与公众号有关联关系',
-        	key:'appid',
+        	width:100,
+          key:'appid',
             align:'center'
         },
         {
         	title:'小程序的页面路径，跟app.json对齐，支持参数，比如pages/index/index?foo=bar',
-        	key:'pagepath',
+        	width:100,
+          key:'pagepath',
             align:'center'
         },
         {
           title:'创建时间',
+          width:100,
           key:'createDate',
           sortable: true,
           align:'center'
         },
         {
           title:'修改时间',
+          width:100,
           key:'updateDate',
           sortable: true,
           align:'center'
@@ -340,6 +353,7 @@ export default {
 		{
           title: '操作',
           key: 'action',
+          width:180,
           fixed:'right',
           align:'center',
           render: (h, params) => {
@@ -347,6 +361,9 @@ export default {
                 props: {
                   type: 'primary',
                   size: 'small'
+                },
+                style:{
+                  margin:'5px'
                 },
                 on: {
                   click: () => {
@@ -358,6 +375,9 @@ export default {
                 props: {
                   type: 'error',
                   size: 'small'
+                },
+                style:{
+                  margin:'5px'
                 },
                 on: {
                   click: () => {
@@ -371,7 +391,10 @@ export default {
                   size: 'small'
                 },
                 style:{
-                    margin:'12px 0'
+                  margin:'5px'
+                },
+                style:{
+                    margin:'12px  0'
                 },
                 on: {
                   click: () => {
@@ -381,11 +404,13 @@ export default {
               }, '群发消息');
             	var s=h("div","");
 			s=h("div",[
-                ("div",[
+                h("div",[
               varhh1,
               varhh2
             ]),
+            h("div",[
               varhh3
+            ])
             ]);
             return s;
           }

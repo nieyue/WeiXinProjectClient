@@ -19,12 +19,12 @@
                 <Submenu name="sign">
                     <template slot="title">
                         <Icon type="pizza"></Icon>
-                        签到管理
+                        签到奖品管理
                     </template>
-                    <MenuItem :name="menu.sign.sign">签到</MenuItem>
-                    <MenuItem :name="menu.sign.signRecord">签到记录</MenuItem>
+                   <!--  <MenuItem :name="menu.sign.sign">签到</MenuItem>
+                    <MenuItem :name="menu.sign.signRecord">签到记录</MenuItem> -->
                     <MenuItem :name="menu.sign.prize">奖品</MenuItem>
-                    <MenuItem :name="menu.sign.signPrize">签到奖品</MenuItem>
+                    <!-- <MenuItem :name="menu.sign.signPrize">签到奖品</MenuItem> -->
                 </Submenu>
                 <Submenu name="account">
                     <template slot="title">
@@ -88,12 +88,12 @@
             subscription:{
                  subscription:"/main/subscription/"+pp
             },
-             //签到
+             //签到奖品
             sign:{
-                 sign:"/main/sign/"+pp,
-                 signRecord:"/main/signRecord/"+pp,
+                 /* sign:"/main/sign/"+pp,
+                 signRecord:"/main/signRecord/"+pp, */
                  prize:"/main/prize/"+pp,
-                 signPrize:"/main/signPrize/"+pp,
+                /*  signPrize:"/main/signPrize/"+pp, */
             },
              //角色权限
             rolePermission:{

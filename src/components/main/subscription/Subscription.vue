@@ -23,6 +23,10 @@
           <Input type="text" v-model="addSubscription.appsecret" placeholder="公众号秘钥">
           </Input>
         </FormItem>
+        <FormItem prop="token" label="微信接口令牌:">
+          <Input type="text" v-model="addSubscription.token" placeholder="微信接口令牌">
+          </Input>
+        </FormItem>
         <FormItem prop="ghid" label="公众号原始id:">
           <Input type="text" v-model="addSubscription.ghid" placeholder="公众号原始id">
           </Input>
@@ -71,6 +75,10 @@
         </FormItem>
         <FormItem prop="appsecret" label="公众号秘钥:">
           <Input type="text" v-model="updateSubscription.appsecret" placeholder="公众号秘钥">
+          </Input>
+        </FormItem>
+        <FormItem prop="token" label="微信接口令牌:">
+          <Input type="text" v-model="updateSubscription.token" placeholder="微信接口令牌">
           </Input>
         </FormItem>
         <FormItem prop="ghid" label="公众号原始id:">
@@ -157,31 +165,43 @@ export default {
         },
         {
           title: '公众号id',
+          width:100,
           key: 'subscriptionId',
           align:'center'
         },
         {
         	title:'公众号名',
+          width:100,
         	key:'name',
           align:'center'
         },
         {
         	title:'公众号应用id',
+          width:100,
         	key:'appid',
           align:'center'
         },
         {
         	title:'公众号秘钥',
+          width:100,
         	key:'appsecret',
           align:'center'
         },
         {
+        	title:'微信接口令牌',
+          width:100,
+        	key:'token',
+          align:'center'
+        },
+        {
         	title:'公众号原始id',
+          width:100,
         	key:'ghid',
           align:'center'
         },
         {
         	title:'公众号二维码',
+          width:100,
         	//key:'imgAddress',
           align:'center',
           render: (h, params) => {
@@ -197,28 +217,34 @@ export default {
         },
         {
         	title:'公众号商户id',
+          width:100,
         	key:'mchid',
           align:'center'
         },
         {
         	title:'公众号商户秘钥key',
+          width:100,
         	key:'mchkey',
           align:'center'
         },
         {
         	title:'创建时间',
+          width:100,
           key:'createDate',
           sortable: true,
           align:'center'
         },
         {
         	title:'更新时间',
+          width:100,
           key:'updateDate',
           sortable: true,
           align:'center'
         },
 				{
           title: '操作',
+          width:180,
+          fixed:'right',
           key: 'action',
           align:'center',
           render: (h, params) => {
@@ -226,6 +252,9 @@ export default {
                 props: {
                   type: 'primary',
                   size: 'small'
+                },
+                style:{
+                  margin:'5px'
                 },
                 on: {
                   click: () => {
@@ -238,6 +267,9 @@ export default {
                   type: 'error',
                   size: 'small'
                 },
+                style:{
+                  margin:'5px'
+                },
                 on: {
                   click: () => {
                     this.delete(params.row)
@@ -248,6 +280,45 @@ export default {
                 props: {
                   type: 'ghost',
                   size: 'small'
+                },
+                style:{
+                  margin:'5px'
+                },
+                on: {
+                  click: () => {
+                     let  pp=JSON.stringify({
+                      currentPage:1,//当前页
+                      subscriptionId:params.row.subscriptionId
+                    });
+                    this.$router.push('/main/sign/'+pp);
+                  }
+                }
+              }, '签到');
+            var varhh4=  h('Button', {
+                props: {
+                  type: 'dashed',
+                  size: 'small'
+                },
+                style:{
+                  margin:'5px'
+                },
+                on: {
+                  click: () => {
+                     let  pp=JSON.stringify({
+                      currentPage:1,//当前页
+                      subscriptionId:params.row.subscriptionId
+                    });
+                    this.$router.push('/main/signRecord/'+pp);
+                  }
+                }
+              }, '签到记录');
+            var varhh5=  h('Button', {
+                props: {
+                  type: 'info',
+                  size: 'small'
+                },
+                style:{
+                  margin:'5px'
                 },
                 on: {
                   click: () => {
@@ -262,11 +333,15 @@ export default {
             	var s=h("div","");
               s=h("div",[
                 h("div",[
-                  varhh3
+                  varhh1,
+                  varhh2
                 ]),
                 h("div",[
-                      varhh1,
-                      varhh2
+                  varhh3,
+                  varhh4
+                ]),
+                h("div",[
+                  varhh5
                 ])
             ]);
             return s;

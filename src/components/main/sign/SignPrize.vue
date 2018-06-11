@@ -49,6 +49,8 @@
     </Modal>
     <!--修改end -->
       <Table border :columns='signPrizeColumns' :data='signPrizeList' ref='table' size="small"></Table>
+      <!-- <br/>
+      <Button type="primary" size="large" @click="exportData"><Icon type="ios-download-outline"></Icon>导出数据</Button> -->
         <div style='display: inline-block;float: right; margin-top:10px;'>
         <Page style='margin-right:10px;' :current="params.currentPage"  :total='params.total' :pageSize='params.pageSize' ref='page' :show-total='true'   @on-change='selectPage' show-elevator ></Page>
       </div>
@@ -59,7 +61,6 @@ export default {
   name: 'SignPrize',
   data () {
     return {
-        add2:'dfds2',
         params:{
             startNum:1,//初始化个数
             currentPage:1,//当前页
@@ -114,12 +115,12 @@ export default {
         {
         	title:'签到奖品名称',
         	key:'name',
-            align:'center'
+          align:'center'
         },
         {
         	title:'签到奖品数量',
         	key:'number',
-            align:'center'
+          align:'center'
         },
         {
         	title:'签到奖品图片',
@@ -144,8 +145,7 @@ export default {
         },
          {
         	title:'状态',
-            key:'status',
-             width:100,
+          key:'status',
           align:'center',
           render: (h, params) => {
             let statusvalue="";
@@ -168,7 +168,7 @@ export default {
                   size: 'small'
                 },
                 style: {
-                  marginLeft: '10px'
+                  margin: '5px'
                 },
                 on: {
                   click: () => {
@@ -182,7 +182,7 @@ export default {
                   size: 'small'
                 },
                 style: {
-                  marginLeft: '10px'
+                  margin: '5px'
                 },
                 on: {
                   click: () => {
@@ -196,7 +196,7 @@ export default {
                   size: 'small'
                 },
                 style: {
-                  marginLeft: '10px'
+                  margin: '5px'
                 },
                 on: {
                   click: () => {
@@ -210,7 +210,7 @@ export default {
                   size: 'small'
                 },
                 style: {
-                  marginLeft: '10px'
+                  margin: '5px'
                 },
                 on: {
                   click: () => {
@@ -220,18 +220,23 @@ export default {
               }, '拒绝发送');
                 var s=h("div","");
                 var varhharray=[];
+                let hh12=h("div",[
+                      varhh1,
+                      varhh2
+                  ]);
+                let hh34=h("div",[
+                      varhh3,
+                      varhh4
+                  ]);
         if(this.isSuperAdmin){
             varhharray=[
-                varhh1,
-                varhh2
+                hh12
             ];
             //如果用户已经申请
             if(params.row.status==2){
         varhharray=[
-                varhh1,
-                varhh2,
-                varhh3,
-                varhh4
+                hh12,
+                hh34
             ];
             }
           }else{
@@ -240,8 +245,7 @@ export default {
                //如果用户已经申请
             if(params.row.status==2){
         varhharray=[
-                varhh3,
-                varhh4
+                hh34
             ];
             }
               }
@@ -260,7 +264,7 @@ export default {
       //构造path
      let pp=JSON.stringify({
        currentPage:currentPage,
-        accountId:JSON.parse(this.$route.params.pathParams).accountId,
+        prizeId:JSON.parse(this.$route.params.pathParams).prizeId,
         subscriptionId:JSON.parse(this.$route.params.pathParams).subscriptionId
      })
      //console.log(this.$route.path.substr(0,this.$route.path.indexOf(this.$route.params.pathParams)))
@@ -284,7 +288,7 @@ export default {
      * p.listUrl 列表url
      * p.data 返回列表
      */
-     this.params.accountId=JSON.parse(this.$route.params.pathParams).accountId
+     this.params.prizeId=JSON.parse(this.$route.params.pathParams).prizeId
      this.params.subscriptionId=JSON.parse(this.$route.params.pathParams).subscriptionId
      this.axiosbusiness.getList(this,{
        countUrl:'/signPrize/count',
@@ -423,7 +427,15 @@ export default {
       url:'/signPrize/delete',
       requestObject:'deleteSignPrize'
     })
-    }
+    },
+    //导出数据
+   /*  exportData (type) {
+      this.$refs.table.exportCsv({
+          filename: '签到奖品',
+          columns: this.signPrizeCoumns,
+          data: this.signPrizeList
+      });
+    }       */
   },
    watch: {
     //当前页面参数修改动态启动

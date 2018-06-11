@@ -203,7 +203,8 @@ export default {
      //构造path
      let pp=JSON.stringify({
        currentPage:currentPage,
-       accountId:JSON.parse(this.$route.params.pathParams).accountId
+       accountId:JSON.parse(this.$route.params.pathParams).accountId,
+       subscriptionId:JSON.parse(this.$route.params.pathParams).subscriptionId
      })
      //console.log(this.$route.path.substr(0,this.$route.path.indexOf(this.$route.params.pathParams)))
       this.$router.push(this.$route.path.substr(0,this.$route.path.indexOf(this.$route.params.pathParams))+pp);
@@ -220,6 +221,7 @@ export default {
      */
         //根据id获取数据
     this.params.accountId=JSON.parse(this.$route.params.pathParams).accountId
+    this.params.subscriptionId=JSON.parse(this.$route.params.pathParams).subscriptionId
      this.axiosbusiness.getList(this,{
        countUrl:'/sign/count',
        listUrl:'/sign/list',
@@ -231,6 +233,7 @@ export default {
       this.addSignModel = true
       this.addSign={
            accountId:JSON.parse(this.$route.params.pathParams).accountId,
+           subscriptionId:JSON.parse(this.$route.params.pathParams).subscriptionId,
 		}
     },
 		//增加取消
@@ -285,7 +288,6 @@ export default {
      * p.loading loading
      * p.showModel 界面模型显示隐藏
      */
-    console.log(this.updateSign)
     delete this.updateSign.account
     delete this.updateSign.subscription
     this.axiosbusiness.update(this,{
