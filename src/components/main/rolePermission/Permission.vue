@@ -89,7 +89,7 @@
     <!--修改end -->
       <Table border  :columns='permissionColumns' :data='permissionList' ref='table' size="small"></Table>
         <div style='display: inline-block;float: right; margin-top:10px;'>
-        <Page style='margin-right:10px;' :total='params.total' :pageSize='params.pageSize' ref='page' :show-total='true'   @on-change='selectPage' show-elevator ></Page>
+        <Page style='margin-right:10px;' :current="params.currentPage" :total='params.total' :pageSize='params.pageSize' ref='page' :show-total='true'   @on-change='selectPage' show-elevator ></Page>
       </div>
     </div>
     
@@ -263,7 +263,12 @@ export default {
         .then((res)=>{
           console.log(res.data);
             this.$Spin.hide();
+            if(res.data.code==200){
+            this.permissionList=res.data.data
             this.$Message.success("成功")
+            }else{
+            this.$Message.error(res.data.msg)
+            }
 
 
         }).catch((error)=>{

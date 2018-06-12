@@ -89,7 +89,7 @@
       </div>
     </Modal>
     <!--修改end -->
-      <Table border  :columns='rolePermissionColumns' :data='rolePermissionList' ref='table' size="small"></Table>
+      <Table border  :current="params.currentPage" :columns='rolePermissionColumns' :data='rolePermissionList' ref='table' size="small"></Table>
     </div>
     
   </div>
