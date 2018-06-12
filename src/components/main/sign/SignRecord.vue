@@ -115,6 +115,11 @@ export default {
             align:'center'
         },
         {
+        	title:'openid',
+        	key:'openid',
+            align:'center'
+        },
+        {
         	title:'奖励积分',
         	key:'integral',
             align:'center'

@@ -108,6 +108,11 @@ export default {
             align:'center'
         },
         {
+            title:'openid',
+            key:'openid',
+            align:'center'
+        },
+        {
             title:'连续天数',
             key:'dayNumber',
             align:'center'
