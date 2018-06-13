@@ -2,6 +2,26 @@
  * 三级联动
  */
 export default {
+    getValueByLabel(province,city,area){
+            let value=[];
+            let tc=this.getThreeCity();
+            tc.forEach((e)=>{
+              if(e.label==province){
+                value.push(e.value)
+                e.children.forEach((ce)=>{
+                  if(ce.label==city){
+                      value.push(ce.value)
+                      ce.children.forEach((cce)=>{
+                          if(cce.label==area){
+                              value.push(cce.value)
+                          }
+                        })
+                  }
+                })
+            }
+        }); 
+        return value;
+      },
   /**
    * 获取城市三级联动
    */

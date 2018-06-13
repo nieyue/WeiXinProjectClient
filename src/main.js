@@ -32,6 +32,7 @@ Vue.use(iView)
 Vue.component("my-upload",MyUpload)
 //注册自定义编辑器
 Vue.component("my-wangeditor",MyWangeditor)
+//注册自定义编辑器
 //全局监听事件
 Vue.prototype.Hub = new Vue();
 

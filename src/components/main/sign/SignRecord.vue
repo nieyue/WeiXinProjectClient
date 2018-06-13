@@ -117,7 +117,8 @@ export default {
         {
         	title:'openid',
         	key:'openid',
-            align:'center'
+          align:'center'
+
         },
         {
         	title:'奖励积分',

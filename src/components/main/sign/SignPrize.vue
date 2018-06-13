@@ -110,7 +110,33 @@ export default {
         {
             title:'openid',
             key:'openid',
-            align:'center'
+            align:'center',
+            render:(h,params)=>{
+              var r=h("div",params.row.openid);
+              //如果已经申请才显示
+                r=h("div",[
+                  h("div",params.row.openid),
+                   h('Button', {
+                      props: {
+                        type: 'primary',
+                        size: 'small'
+                      },
+                      style: {
+                        margin: '5px'
+                      },
+                      on: {
+                        click: () => {
+                          let  pp=JSON.stringify({
+                            currentPage:1,//当前页
+                            openid:params.row.openid
+                          });
+                           this.$router.push('/main/receiptInfo/'+pp);
+                        }
+                      }
+                    }, '收货地址')
+                ]);
+              return r;
+            }
         },
         {
             title:'连续天数',

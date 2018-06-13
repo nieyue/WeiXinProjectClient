@@ -11,6 +11,7 @@ import Prize from '@/components/main/sign/Prize'
 import Sign from '@/components/main/sign/Sign'
 import SignRecord from '@/components/main/sign/SignRecord'
 import SignPrize from '@/components/main/sign/SignPrize'
+import ReceiptInfo from '@/components/main/ReceiptInfo/ReceiptInfo'
 import Role from '@/components/main/rolePermission/Role'
 import Permission from '@/components/main/rolePermission/Permission'
 import RolePermission from '@/components/main/rolePermission/RolePermission'
@@ -76,6 +77,11 @@ const router= new Router({
           path: 'signPrize/:pathParams',
           name: '签到奖品',
           component: SignPrize
+        },
+        {
+          path: 'receiptInfo/:pathParams',
+          name: '收货地址',
+          component: ReceiptInfo
         },
         {
           path: 'account',
