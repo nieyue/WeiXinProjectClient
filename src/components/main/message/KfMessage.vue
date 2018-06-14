@@ -13,7 +13,7 @@
              width="1000px"
     >
       <Form ref="addKfMessage" :model="addKfMessage" :label-width="100" label-position="right"  :rules="addKfMessageRules">
-        <FormItem prop="msgtyp" label="消息类型:">
+        <FormItem prop="msgtype" label="消息类型:">
           <Select v-model="addKfMessage.msgtype" transfer size="large" style="width:200px">
               <Option v-for="item in msgtypeList" :value="item.id" :key="item.id">{{ item.value }}</Option>
           </Select>
@@ -200,7 +200,7 @@ export default {
 			addLoading:false,
 			addKfMessageRules: {
                 msgtype: [
-                    {type:"number",required: true, message: '客服消息类型为必填项', trigger: 'change'}
+                    {type:"string",required: true, message: '客服消息类型为必填项', trigger: 'change'}
                     ],
                 },
 			addKfMessage:{
@@ -209,8 +209,8 @@ export default {
 			updateKfMessageModel:false,
 			updateLoading:false,
 			updateKfMessageRules: {
-                name: [
-                    {type:"number",required: true, message: '客服消息类型为必填项', trigger: 'change'}
+                msgtype: [
+                    {type:"string",required: true, message: '客服消息类型为必填项', trigger: 'change'}
                     ],
                 },
 			updateKfMessage:{

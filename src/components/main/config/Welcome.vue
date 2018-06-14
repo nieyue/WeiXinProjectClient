@@ -2,8 +2,8 @@
 <template>
     <div class="body-wrap">
         <div>欢迎来到微信后台配置！现在的时间见是：<span v-text="time"></span></div>
-        <img src="@/assets/logo.png"/>
-       <!--  <button @click="ccc()">cc</button> -->
+        <!-- <img src="@/assets/logo.png"/> -->
+        <my-phone></my-phone>
     </div>
 </template>
 <script>
@@ -34,3 +34,4 @@ export default {
   }
 }
 </script>
+

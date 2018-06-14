@@ -57,7 +57,8 @@ export default {
         //子组件传值给父组件
         uploadList: [],
         //路径
-        action:"http://localhost:8080/tool/img/add",
+        action:this.axios.defaults.imgURL+"/tool/img/add",
+        //action:"http://localhost:8080/tool/img/add",
         //上传名称
         name:"editorUpload",
         //最大上传数

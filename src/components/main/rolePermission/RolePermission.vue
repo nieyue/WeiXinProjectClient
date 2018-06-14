@@ -133,7 +133,7 @@ export default {
 			addLoading:false,
 			addRolePermissionRules: {
                 permissionId: [
-                    {type:"number",required: true, message: '权限为必选项', trigger: 'change'}
+                    {type:"string",required: true, message: '权限为必选项', trigger: 'change'}
                     ],
                 region: [
                     {type:"number",required: true, message: '范围为必选项', trigger: 'change'}
@@ -146,9 +146,9 @@ export default {
 			updateRolePermissionModel:false,
 			updateLoading:false,
 			updateRolePermissionRules: {
-                // permissionId: [
-                //     {type:"number",required: true, message: '权限为必选项', trigger: 'change'}
-                //     ],
+               /*  permissionId: [
+                    {type:"number",required: true, message: '权限为必选项', trigger: 'change'}
+                    ], */
                 region: [
                     {type:"number",required: true, message: '范围为必选项', trigger: 'change'}
                     ]

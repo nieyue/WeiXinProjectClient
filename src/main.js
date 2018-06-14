@@ -15,12 +15,15 @@ import axiosbusiness from "@/components/service/axiosbusiness"
 import business from "@/components/service/business"
 import MyUpload from '@/components/common/MyUpload'
 import MyWangeditor from '@/components/common/MyWangeditor'
+import MyPhone from '@/components/common/MyPhone'
 
 Vue.config.productionTip = false
 //axios.defaults.baseURL="http://192.168.7.111:8080";
 axios.defaults.baseURL="http://localhost:8080";
-//axios.defaults.baseURL="http://app.jiehao9.com";
+//axios.defaults.baseURL="http://ccsd.boya1.cn";
 axios.defaults.headers["Content-Type"]="application/x-www-form-urlencoded";
+//默认为baseURL，
+axios.defaults.imgURL=""||axios.defaults.baseURL;
 Vue.prototype.Qs=Qs
 Vue.prototype.utils=utils
 Vue.prototype.wangeditor=wangeditor
@@ -32,7 +35,8 @@ Vue.use(iView)
 Vue.component("my-upload",MyUpload)
 //注册自定义编辑器
 Vue.component("my-wangeditor",MyWangeditor)
-//注册自定义编辑器
+//注册自定义手机组件
+Vue.component("my-phone",MyPhone)
 //全局监听事件
 Vue.prototype.Hub = new Vue();
 

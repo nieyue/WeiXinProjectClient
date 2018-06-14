@@ -188,6 +188,14 @@ export default {
           align:'center'
         },
         {
+        	title:'微信公众号URL',
+          width:100,
+          align:'center',
+          render:(h,params)=>{
+            return h("span",this.axios.defaults.baseURL+"/weixin/portal/"+params.row.appid)
+          }
+        },
+        {
         	title:'微信接口令牌',
           width:100,
         	key:'token',
@@ -215,6 +223,7 @@ export default {
             })
           }
         },
+        
         {
         	title:'公众号商户id',
           width:100,

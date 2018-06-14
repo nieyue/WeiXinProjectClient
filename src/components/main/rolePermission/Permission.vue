@@ -264,7 +264,7 @@ export default {
           console.log(res.data);
             this.$Spin.hide();
             if(res.data.code==200){
-            this.permissionList=res.data.data
+            this.getList();
             this.$Message.success("成功")
             }else{
             this.$Message.error(res.data.msg)
