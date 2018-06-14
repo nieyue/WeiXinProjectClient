@@ -10,6 +10,7 @@ import KfArticle from '@/components/main/message/KfArticle'
 import Prize from '@/components/main/sign/Prize'
 import Sign from '@/components/main/sign/Sign'
 import SignRecord from '@/components/main/sign/SignRecord'
+import WeixinMpMenu from '@/components/main/weixinMpMenu/WeixinMpMenu'
 import SignPrize from '@/components/main/sign/SignPrize'
 import ReceiptInfo from '@/components/main/ReceiptInfo/ReceiptInfo'
 import Role from '@/components/main/rolePermission/Role'
@@ -47,6 +48,11 @@ const router= new Router({
           path: 'subscription/:pathParams',
           name: '公众号',
           component: Subscription
+        },
+        {
+          path: 'weixinMpMenu/:pathParams',
+          name: '微信公众号菜单',
+          component: WeixinMpMenu
         },
         {
           path: 'kfMessage/:pathParams',

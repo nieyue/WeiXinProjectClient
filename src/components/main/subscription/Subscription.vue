@@ -339,6 +339,24 @@ export default {
                   }
                 }
               }, '客服消息');
+            var varhh6=  h('Button', {
+                props: {
+                  type: 'success',
+                  size: 'small'
+                },
+                style:{
+                  margin:'5px'
+                },
+                on: {
+                  click: () => {
+                     let  pp=JSON.stringify({
+                      currentPage:1,//当前页
+                      subscriptionId:params.row.subscriptionId
+                    });
+                    this.$router.push('/main/weixinMpMenu/'+pp);
+                  }
+                }
+              }, '公众号菜单');
             	var s=h("div","");
               s=h("div",[
                 h("div",[
@@ -350,7 +368,8 @@ export default {
                   varhh4
                 ]),
                 h("div",[
-                  varhh5
+                  varhh5,
+                  varhh6
                 ])
             ]);
             return s;
