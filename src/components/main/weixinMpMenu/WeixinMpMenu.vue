@@ -2,6 +2,8 @@
 <template>
     <div class="body-wrap">
       <my-phone :model="2" ></my-phone>
+      
+    <Button type="error" style="float:right" @click="oneAddSign">一键添加“签到有礼”</Button>
     </div>
 </template>
 <script>
@@ -39,7 +41,9 @@ export default {
       },
         //删除参数
         deleteWeixinMpMenu:{},
-	    weixinMpMenuList:[]
+      weixinMpMenuList:[],
+      //一键创建菜单返回
+      testcreateList:''
     }
   },
   methods: {
@@ -53,6 +57,7 @@ export default {
      * p.list 返回列表
      */
         //根据id获取数据
+    this.params.appid=JSON.parse(this.$route.params.pathParams).appid
     this.params.subscriptionId=JSON.parse(this.$route.params.pathParams).subscriptionId
      this.axiosbusiness.getList(this,{
        countUrl:'/weixinMpMenu/count',
@@ -63,9 +68,6 @@ export default {
   //增加
 	 add (params) {
       this.addWeixinMpMenuModel = true
-      this.addWeixinMpMenu={
-           subscriptionId:JSON.parse(this.$route.params.pathParams).subscriptionId,
-		}
     },
 		//增加取消
 		 addCancel () {
@@ -119,7 +121,6 @@ export default {
      * p.loading loading
      * p.showModel 界面模型显示隐藏
      */
-    delete this.updateWeixinMpMenu.subscription
     this.axiosbusiness.update(this,{
       ref:'updateWeixinMpMenu',
       url:'/weixinMpMenu/update',
@@ -144,6 +145,18 @@ export default {
       url:'/weixinMpMenu/delete',
       requestObject:'deleteWeixinMpMenu'
     })
+    },
+    /**
+     * 一键添加签到有礼
+     */
+    oneAddSign(){
+    this.axiosbusiness.get(this,{
+         url:'/weixin/menu/testcreate?appid='+JSON.parse(this.$route.params.pathParams).appid,
+         data:'testcreateList',
+         success:()=>{
+           console.log(this.testcreateList)
+         }
+       })
     }
   },
   created () {
@@ -153,7 +166,7 @@ export default {
     
   },
   mounted () {
-
+      
   }
 }
 </script>

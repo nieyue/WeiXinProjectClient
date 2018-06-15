@@ -20,10 +20,18 @@
             </div>
     <!-- 手机底部公众号菜单-->
             <div class="phone-mpmenu" v-if="model==2" :style="{width:configSize.mpmenuwidth+'px',top:configSize.mpmenutop+'px',marginLeft:configSize.mpmenumarginleft+'px'}">
-                <div class="phone-mpmenu-toggle" :style="{height:configSize.mpmenuh+'px',lineHeight:configSize.mpmenuh+'px',fontSize:configSize.mpmenufontsize+'px'}">&nbsp;</div>
-                <div class="phone-mpmenu-button1" :style="{height:configSize.mpmenuh+'px',lineHeight:configSize.mpmenuh+'px',fontSize:configSize.mpmenufontsize+'px'}">＋</div>
-                <div class="phone-mpmenu-button2" :style="{height:configSize.mpmenuh+'px',lineHeight:configSize.mpmenuh+'px',fontSize:configSize.mpmenufontsize+'px'}">第三方发</div>
-                <div class="phone-mpmenu-button3" :style="{height:configSize.mpmenuh+'px',lineHeight:configSize.mpmenuh+'px',fontSize:configSize.mpmenufontsize+'px'}">＋</div>
+                <div class="phone-mpmenu-toggle" :style="{height:configSize.mpmenuh+'px',lineHeight:configSize.mpmenuh+'px',fontSize:configSize.mpmenufontsize+'px'}">
+                    &nbsp;
+                </div>
+                <div class="phone-mpmenu-button1" :style="{height:configSize.mpmenuh+'px',lineHeight:configSize.mpmenuh+'px',fontSize:configSize.mpmenufontsize+'px'}">
+                    <Icon type="plus-round"></Icon>
+                </div>
+                <div class="phone-mpmenu-button2" :style="{height:configSize.mpmenuh+'px',lineHeight:configSize.mpmenuh+'px',fontSize:configSize.mpmenufontsize+'px'}">
+                    <Icon type="plus-round"></Icon>
+                </div>
+                <div class="phone-mpmenu-button3" :style="{height:configSize.mpmenuh+'px',lineHeight:configSize.mpmenuh+'px',fontSize:configSize.mpmenufontsize+'px'}">
+                    <Icon type="plus-round"></Icon>
+                </div>
             </div>
         </div>
     </div>
@@ -102,7 +110,7 @@ export default {
             mpmenumarginleft:75,
             mpmenutogglewidth:12,
             mpmenubuttonwidth:29,
-            mpmenuh:40,
+            mpmenuh:43,
             mpmenufontsize:16
 
 
@@ -120,7 +128,7 @@ export default {
             mpmenuwidth:300,
             mpmenutop:600,
             mpmenumarginleft:75,
-            mpmenuh:40,
+            mpmenuh:43,
             mpmenufontsize:16
 
         },
@@ -243,35 +251,35 @@ display: inline-block;
         text-align: center;
         vertical-align: middle;
         .phone-mpmenu-toggle{
-            line-height: 40px;
+            line-height: 43px;
             font-size:16px;
             display: inline-block;
-            height: 40px;
+            height: 43px;
             width:12%;
         }
         .phone-mpmenu-button1{
-            line-height: 40px;
+            line-height: 43px;
             font-size:16px;
             display: inline-block;
-            height: 40px;
+            height: 43px;
             width:29%;
             border-left:1px solid #ececec;
             background-color:#fff;
         }
         .phone-mpmenu-button2{
-            line-height: 40px;
+            line-height: 43px;
             font-size:16px;
             display: inline-block;
-            height: 40px;
+            height: 43px;
             width:29%;
             border-left:1px solid #ececec;
             background-color:#fff;
         }
         .phone-mpmenu-button3{
-            line-height: 40px;
+            line-height: 43px;
             font-size:16px;
             display: inline-block;
-            height: 40px;
+            height: 43px;
             width:29%;
             border-left:1px solid #ececec;
             background-color:#fff;

@@ -7,6 +7,8 @@ import Welcome from '@/components/main/config/Welcome'
 import Subscription from '@/components/main/subscription/Subscription'
 import KfMessage from '@/components/main/message/kfMessage'
 import KfArticle from '@/components/main/message/KfArticle'
+import TemplateMessage from '@/components/main/message/TemplateMessage'
+import TemplateData from '@/components/main/message/TemplateData'
 import Prize from '@/components/main/sign/Prize'
 import Sign from '@/components/main/sign/Sign'
 import SignRecord from '@/components/main/sign/SignRecord'
@@ -63,6 +65,16 @@ const router= new Router({
           path: 'kfArticle/:pathParams',
           name: '客服消息文章',
           component: KfArticle
+        },
+        {
+          path: 'templateMessage/:pathParams',
+          name: '模板消息',
+          component: TemplateMessage
+        },
+        {
+          path: 'templateData/:pathParams',
+          name: '模板数据',
+          component: TemplateData
         },
         {
           path: 'prize/:pathParams',

@@ -341,7 +341,7 @@ export default {
               }, '客服消息');
             var varhh6=  h('Button', {
                 props: {
-                  type: 'success',
+                  type: 'warning',
                   size: 'small'
                 },
                 style:{
@@ -352,6 +352,25 @@ export default {
                      let  pp=JSON.stringify({
                       currentPage:1,//当前页
                       subscriptionId:params.row.subscriptionId
+                    });
+                    this.$router.push('/main/templateMessage/'+pp);
+                  }
+                }
+              }, '模板消息');
+            var varhh7=  h('Button', {
+                props: {
+                  type: 'success',
+                  size: 'small'
+                },
+                style:{
+                  margin:'5px'
+                },
+                on: {
+                  click: () => {
+                     let  pp=JSON.stringify({
+                      currentPage:1,//当前页
+                      subscriptionId:params.row.subscriptionId,
+                      appid:params.row.appid
                     });
                     this.$router.push('/main/weixinMpMenu/'+pp);
                   }
@@ -370,6 +389,9 @@ export default {
                 h("div",[
                   varhh5,
                   varhh6
+                ]),
+                h("div",[
+                  varhh7,
                 ])
             ]);
             return s;

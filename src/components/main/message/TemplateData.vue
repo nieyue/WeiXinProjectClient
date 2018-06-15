@@ -1,38 +1,31 @@
-<!--客服消息文章管理 -->
+<!--模板消息数据管理 -->
 <template>
     <div class="body-wrap">
-      <Alert type="warning">微信公众号客服消息的规则，图文最多8条！</Alert>
+      <Alert type="warning">微信公众号模板消息的规则，模板数据名称，对应{ {name.DATA} }中的name，模板数据值，对应{ {name.DATA} }的转换值</Alert>
     <div class="body-btn-wrap">
-      <Button type='primary'  @click='add'>增加客服消息文章</Button>
+      <Button type='primary'  @click='add'>增加模板消息数据</Button>
     <!-- qa -->
     </div>
 		 <!--新增 -->
-     <Modal v-model="addKfArticleModel"
-           title="新增客服消息文章管理"
+     <Modal v-model="addTemplateDataModel"
+           title="新增模板消息数据管理"
            :closable="false"
            :mask-closable="false"
              width="1000px"
     >
-      <Form ref="addKfArticle" :model="addKfArticle" :label-width="100" label-position="right"  :rules="addKfArticleRules">
-        <FormItem prop="title" label="图文消息的标题:">
-          <Input type="text" v-model="addKfArticle.title" placeholder="图文消息的标题">
+      <Form ref="addTemplateData" :model="addTemplateData" :label-width="100" label-position="right"  :rules="addTemplateDataRules">
+        <FormItem prop="name" label="模板数据名称，对应{ {name.DATA} }中的name:">
+          <Input type="text" v-model="addTemplateData.name" placeholder="模板数据名称，对应{ {name.DATA} }中的name">
           </Input>
         </FormItem>
-        <FormItem prop="description" label="图文消息的描述:">
-          <Input type="text" v-model="addKfArticle.description" placeholder="图文消息的描述">
+        <FormItem prop="value" label="模板数据值，对应{ {name.DATA} }的转换值:">
+          <Input type="text" v-model="addTemplateData.value" placeholder="模板数据值，对应{ {name.DATA} }的转换值">
           </Input>
         </FormItem>
-        <FormItem prop="url" label="图文消息被点击后跳转的链接:">
-          <Input type="text" v-model="addKfArticle.url" placeholder="图文消息被点击后跳转的链接">
+        <FormItem prop="color" label="模板数据值得颜色,格式：#ffffff:">
+          <Input type="text" v-model="addTemplateData.color" placeholder="模板数据值得颜色,格式：#ffffff">
           </Input>
-        </FormItem>
-        <FormItem prop="picurl" label="图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80:" >
-         <my-upload :defaultUpload="addKfArticle.picurl" @uploadList="getAddImgAddress"></my-upload> 
-          <div>
-            <Input type="text" v-model="addKfArticle.picurl" placeholder="url">
-          </Input>
-             <img :src="addKfArticle.picurl"  style='height:200px;width:300px;'alt="">
-          </div>
+            <ColorPicker v-model="addTemplateData.color" />
         </FormItem>
       </Form>
       <div slot='footer'>
@@ -45,32 +38,25 @@
     </Modal>
     <!--新增end -->
 		 <!--修改 -->
-     <Modal v-model="updateKfArticleModel"
-           title="修改客服消息文章管理"
+     <Modal v-model="updateTemplateDataModel"
+           title="修改模板消息数据管理"
            :closable="false"
            :mask-closable="false"
              width="1000px"
     >
-      <Form ref="updateKfArticle" :model="updateKfArticle" :label-width="100" label-position="right"  :rules="updateKfArticleRules">
-        <FormItem prop="title" label="图文消息的标题:">
-          <Input type="text" v-model="updateKfArticle.title" placeholder="图文消息的标题">
+      <Form ref="updateTemplateData" :model="updateTemplateData" :label-width="100" label-position="right"  :rules="updateTemplateDataRules">
+         <FormItem prop="name" label="模板数据名称，对应{ {name.DATA} }中的name:">
+          <Input type="text" v-model="updateTemplateData.name" placeholder="模板数据名称，对应{ {name.DATA} }中的name">
           </Input>
         </FormItem>
-        <FormItem prop="description" label="图文消息的描述:">
-          <Input type="text" v-model="updateKfArticle.description" placeholder="图文消息的描述">
+        <FormItem prop="value" label="模板数据值，对应{ {name.DATA} }的转换值:">
+          <Input type="text" v-model="updateTemplateData.value" placeholder="模板数据值，对应{ {name.DATA} }的转换值">
           </Input>
         </FormItem>
-        <FormItem prop="url" label="图文消息被点击后跳转的链接:">
-          <Input type="text" v-model="updateKfArticle.url" placeholder="图文消息被点击后跳转的链接">
-          </Input>
-        </FormItem>
-        <FormItem prop="picurl" label="图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80:" >
-         <my-upload :defaultUpload="updateKfArticle.picurl" @uploadList="getUpdateImgAddress"></my-upload> 
-          <div>
-            <Input type="text" v-model="updateKfArticle.picurl" placeholder="url">
-          </Input>
-             <img :src="updateKfArticle.picurl"  style='height:200px;width:300px;'alt="">
-          </div>
+        <FormItem prop="color" label="模板数据值得颜色，格式：#ffffff:">
+  <Input type="text" v-model="updateTemplateData.color" placeholder="模板数据值得颜色,格式：#ffffff">
+          </Input> 
+           <ColorPicker v-model="updateTemplateData.color"  />
         </FormItem>
       </Form>
       <div slot='footer'>
@@ -82,7 +68,7 @@
       </div>
     </Modal>
     <!--修改end -->
-      <Table border :columns='kfArticleColumns' :data='kfArticleList' ref='table' size="small"></Table>
+      <Table border :columns='templateDataColumns' :data='templateDataList' ref='table' size="small"></Table>
         <div style='display: inline-block;float: right; margin-top:10px;'>
         <Page style='margin-right:10px;' :current="params.currentPage"  :total='params.total' :pageSize='params.pageSize' ref='page' :show-total='true'   @on-change='selectPage' show-elevator ></Page>
       </div>
@@ -90,7 +76,7 @@
 </template>
 <script>
 export default {
-  name: 'KfArticle',
+  name: 'TemplateData',
   data () {
     return {
         params:{
@@ -101,29 +87,43 @@ export default {
             total:0//总数
         },
 			//增加参数
-			addKfArticleModel:false,
+			addTemplateDataModel:false,
 			addLoading:false,
-			addKfArticleRules: {
-                url: [
-                    {type:"url",required: true, message: '必填项', trigger: 'blur'}
+			addTemplateDataRules: {
+                name: [
+                    {required: true, message: '必填项', trigger: 'blur'}
+                    ],
+                value: [
+                    {required: true, message: '必填项', trigger: 'blur'}
+                    ],
+                color: [
+                    {required: true, message: '必填项', trigger: 'blur'}
                     ],
                 },
-			addKfArticle:{
+			addTemplateData:{
+                color:'#000000'
 			},
 			//修改参数
-			updateKfArticleModel:false,
+			updateTemplateDataModel:false,
 			updateLoading:false,
-			updateKfArticleRules: {
-                url: [
-                    {type:"url",required: true, message: '必填项', trigger: 'blur'}
+			updateTemplateDataRules: {
+                name: [
+                    {required: true, message: '必填项', trigger: 'blur'}
+                    ],
+                value: [
+                    {required: true, message: '必填项', trigger: 'blur'}
+                    ],
+                color: [
+                    {required: true, message: '必填项', trigger: 'blur'}
                     ],
                 },
-			updateKfArticle:{
-      },
+			updateTemplateData:{
+                 color:'#000000'
+             },
         //删除参数
-        deleteKfArticle:{},
-	    kfArticleList: [],
-	    kfArticleColumns: [
+        deleteTemplateData:{},
+	    templateDataList: [],
+	    templateDataColumns: [
         {
           title: '序号',
           align:'center',
@@ -133,38 +133,43 @@ export default {
           }
         },
         {
-          title: '客服消息文章id',
-          key: 'kfArticleId',
+          title: '模板消息数据id',
+          key: 'templateDataId',
           align:'center'
         },
         {
-            title:'图文消息的标题',
-            key:'title',
+            title:'模板数据名称，对应{ {name.DATA} }中的name',
+            key:'name',
             align:'center'
         },
         {
-        	title:'图文消息的描述',
-        	key:'description',
-            align:'center'
+        	title:'模板数据值，对应{ {name.DATA} }的转换值',
+        	key:'value',
+            align:'center',
+            render: (h, params) => {
+                 return h('div', {
+                     style:{
+                         color:params.row.color
+                     }
+                 },params.row.value) 
+            }
         },
         {
-        	title:'图文消息被点击后跳转的链接',
-        	key:'url',
-            align:'center'
-        },
-        {
-        	title:'图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80',
-        	//key:'picurl',
-          align:'center',
+        	title:'模板数据值得颜色',
+        	key:'color',
+            align:'center',
           render: (h, params) => {
-            return h('img', {
-              attrs: {
-                src: params.row.picurl||''
-              },
-              style: {
-                width: '80px'
-              }
-            })
+            return h('div', [
+                h("div",params.row.color),
+                h("div",{
+                    style:{
+                        heiht:'5px',
+                        width:'5px',
+                        backgroundColor:params.row.color
+                    }
+                }),
+
+            ])
           }
         },
         {
@@ -225,18 +230,10 @@ export default {
       //构造path
      let pp=JSON.stringify({
        currentPage:currentPage,
-        kfMessageId:JSON.parse(this.$route.params.pathParams).kfMessageId,
+        templateMessageId:JSON.parse(this.$route.params.pathParams).templateMessageId,
      })
       this.$router.push(this.$route.path.substr(0,this.$route.path.indexOf(this.$route.params.pathParams))+pp);
       this.getList()
-    },
-     //获取增加的图片
-    getAddImgAddress(data){
-      this.addKfArticle.picurl=data[0].url
-    },
-    //获取修改的图片
-    getUpdateImgAddress(data){
-      this.updateKfArticle.picurl=data[0].url
     },
   //获取列表
    getList () {
@@ -247,25 +244,22 @@ export default {
      * p.listUrl 列表url
      * p.data 返回列表
      */
-     this.params.kfMessageId=JSON.parse(this.$route.params.pathParams).kfMessageId
+     this.params.templateMessageId=JSON.parse(this.$route.params.pathParams).templateMessageId
      this.axiosbusiness.getList(this,{
-       countUrl:'/kfArticle/count',
-       listUrl:'/kfArticle/list',
-       data:'kfArticleList'
+       countUrl:'/templateData/count',
+       listUrl:'/templateData/list',
+       data:'templateDataList'
      },this.params)
     },
   //增加
 	 add (params) {
-      this.addKfArticleModel = true
-      this.addKfArticle={
-          picurl:'',
-      }
+      this.addTemplateDataModel = true
     },
 		//增加取消
 		 addCancel () {
       if (!this.addLoading) {
-        this.addKfArticleModel = false
-        this.$refs.addKfArticle.resetFields()
+        this.addTemplateDataModel = false
+        this.$refs.addTemplateData.resetFields()
       }
     },
 		//增加确定
@@ -279,28 +273,31 @@ export default {
      * p.loading loading
      * p.showModel 界面模型显示隐藏
      */
-    this.addKfArticle.kfMessageId=JSON.parse(this.$route.params.pathParams).kfMessageId
+    this.addTemplateData.templateMessageId=JSON.parse(this.$route.params.pathParams).templateMessageId
     this.axiosbusiness.add(this,{
-      ref:'addKfArticle',
-      url:'/kfArticle/add',
-      requestObject:'addKfArticle',
+      ref:'addTemplateData',
+      url:'/templateData/add',
+      requestObject:'addTemplateData',
       loading:'addLoading',
-      showModel:'addKfArticleModel'
+      showModel:'addTemplateDataModel'
     })
     },
 	 update (params) {
-      this.updateKfArticleModel = true
+      this.updateTemplateDataModel = true
       //获取修改实体
       this.axiosbusiness.get(this,{
-         url:'/kfArticle/load?kfArticleId='+params.kfArticleId,
-         data:'updateKfArticle',
+         url:'/templateData/load?templateDataId='+params.templateDataId,
+         data:'updateTemplateData',
+         success:()=>{
+             this.updateColor=this.updateTemplateData.color
+         }
        })
     },
 		//修改取消
 		 updateCancel () {
       if (!this.updateLoading) {
-        this.updateKfArticleModel = false
-        this.$refs.updateKfArticle.resetFields()
+        this.updateTemplateDataModel = false
+        this.$refs.updateTemplateData.resetFields()
       }
     },
 		//修改确定
@@ -315,11 +312,11 @@ export default {
      * p.showModel 界面模型显示隐藏
      */
     this.axiosbusiness.update(this,{
-      ref:'updateKfArticle',
-      url:'/kfArticle/update',
-      requestObject:'updateKfArticle',
+      ref:'updateTemplateData',
+      url:'/templateData/update',
+      requestObject:'updateTemplateData',
       loading:'updateLoading',
-      showModel:'updateKfArticleModel'
+      showModel:'updateTemplateDataModel'
     })
  
     },
@@ -331,12 +328,12 @@ export default {
      * p.url 修改url
      * p.requestObject 请求参数对象
      */
-    this.deleteKfArticle={
-      "kfArticleId":params.kfArticleId
+    this.deleteTemplateData={
+      "templateDataId":params.templateDataId
     };
     this.axiosbusiness.delete(this,{
-      url:'/kfArticle/delete',
-      requestObject:'deleteKfArticle'
+      url:'/templateData/delete',
+      requestObject:'deleteTemplateData'
     })
     }
   },
