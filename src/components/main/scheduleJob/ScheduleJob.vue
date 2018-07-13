@@ -328,6 +328,8 @@ export default {
      * p.listUrl 列表url
      * p.data 返回列表
      */
+    this.params.jobId=JSON.parse(this.$route.params.pathParams).jobId
+    this.params.type=JSON.parse(this.$route.params.pathParams).type
      this.axiosbusiness.getList(this,{
        countUrl:'/scheduleJob/count',
        listUrl:'/scheduleJob/list',
