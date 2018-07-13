@@ -398,7 +398,7 @@ export default {
                    this.sendKfMessage(params.row)
                   }
                 }
-              }, '群发消息');
+              }, '立即群发消息');
             var varhh4=  h('Button', {
                 props: {
                   type: 'warning',
@@ -417,7 +417,7 @@ export default {
                    this.$router.push('/main/scheduleJob/'+pp);
                   }
                 }
-              }, '群发消息');
+              }, '定时群发消息');
             	var s=h("div","");
 			s=h("div",[
                 h("div",[
