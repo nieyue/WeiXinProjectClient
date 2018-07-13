@@ -2,6 +2,7 @@
 <template>
   <Layout class="rightbody-wrap">
             <!-- <Header class="rightbody-header" >
+                <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}" type="navicon-round" size="24"></Icon>
             </Header> -->
             <content class="rightbody-content">
                 <Breadcrumb class="rightbody-content-crumb">

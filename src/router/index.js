@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/components/Index'
 import Main from '@/components/main/Main'
+import ScheduleJob from '@/components/main/scheduleJob/ScheduleJob'
 import Account from '@/components/main/account/Account'
 import ManagerAccount from '@/components/main/account/ManagerAccount'
 import Welcome from '@/components/main/config/Welcome'
@@ -46,6 +47,11 @@ const router= new Router({
           path: 'welcome/:pathParams',
           name: '欢迎页',
           component: Welcome
+        },
+        {
+          path: 'scheduleJob/:pathParams',
+          name: '工作计划',
+          component: ScheduleJob
         },
         {
           path: 'subscription/:pathParams',

@@ -1,6 +1,6 @@
 <!-- 左侧导航-->
 <template>
-   <Sider class="leftbar-wrap">
+   <Sider class="leftbar-wrap" >
             <Menu :active-name="menuActiveName"  @on-select="menuSelect" theme="dark" width="auto">
                 <Submenu name="config">
                     <template slot="title">

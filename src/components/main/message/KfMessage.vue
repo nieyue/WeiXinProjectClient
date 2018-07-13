@@ -393,12 +393,28 @@ export default {
                 style:{
                   margin:'5px'
                 },
-                style:{
-                    margin:'12px  0'
-                },
                 on: {
                   click: () => {
                    this.sendKfMessage(params.row)
+                  }
+                }
+              }, '群发消息');
+            var varhh4=  h('Button', {
+                props: {
+                  type: 'warning',
+                  size: 'small'
+                },
+                style:{
+                  margin:'5px'
+                },
+                on: {
+                  click: () => {
+                    let pp=JSON.stringify({
+                      currentPage:1,
+                      jobId:params.row.kfMessageId,
+                      type:1//客服消息是1
+                    })
+                   this.$router.push('/main/scheduleJob/'+pp);
                   }
                 }
               }, '群发消息');
@@ -409,7 +425,8 @@ export default {
               varhh2
             ]),
             h("div",[
-              varhh3
+              varhh3,
+              varhh4
             ])
             ]);
             return s;
