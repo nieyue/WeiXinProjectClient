@@ -265,6 +265,23 @@ export default {
                   }
                 }
               }, '群发消息');
+            var varhh4=  h('Button', {
+                props: {
+                  type: 'success',
+                  size: 'small'
+                },
+                style:{
+                  margin:'5px'
+                },
+                style:{
+                    margin:'12px  0'
+                },
+                on: {
+                  click: () => {
+                   this.sendSingleTemplateMessage(params.row)
+                  }
+                }
+              }, '个人测试发送消息');
             	var s=h("div","");
 			s=h("div",[
                 h("div",[
@@ -272,7 +289,8 @@ export default {
               varhh2
             ]),
             h("div",[
-              varhh3
+              varhh3,
+              varhh4
             ])
             ]);
             return s;
@@ -416,6 +434,42 @@ export default {
       content:'确定群发消息吗？',
       requestObject:'requestObject'
     })
+    },
+    //发送个人消息
+    sendSingleTemplateMessage(params){
+      /**
+     * post发送请求
+     * $this  vue组件
+     * p.url 修改url
+     * p.title 名称
+     * p.content 请求内容
+     * p.requestObject 请求参数对象
+     * p.success 成功回调
+     */
+   /*  this.requestObject={
+      "url":this.axios.defaults.baseURL+"/home/mp.html?templateMessageId="+params.templateMessageId
+    }; */
+    this.axios({
+          method:"post",
+          //url:'/tool/getQrCode?url=http://ccsd.tea18.cn/home/mp.html?templateMessageId='+params.templateMessageId,
+          url:'/tool/getQrCode?url='+this.axios.defaults.baseURL+"/home/mp.html?templateMessageId="+params.templateMessageId,
+         // data:JSON.stringify(this.requestObject),
+          withCredentials: true,  
+          responseType:'blob'
+          })
+        .then((res)=>{
+          var blob = new Blob([res.data], {type: "image/png"}); 
+          var imgurl=window.URL.createObjectURL(blob);
+          console.log(imgurl)
+          this.$Modal.success({
+            title: "扫一扫发送个人消息",
+            content: "<img src="+imgurl+" style='width:100px;height:100px;'/>"
+          });
+        }).catch((error)=>{
+            console.log(error);
+            this.$Message.error("错误")
+         });
+
     }
   },
    watch: {

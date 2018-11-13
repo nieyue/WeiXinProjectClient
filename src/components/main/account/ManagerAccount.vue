@@ -41,7 +41,7 @@
           </Select>
         </FormItem>
         <FormItem prop="roleId" label="角色:">
-          <Select v-model="addAccount.roleId" @on-change="addRoleChange" transfer size="large" style="width:100px">
+          <Select v-model="addAccount.roleId"  transfer size="large" style="width:100px">
               <Option v-for="item in roleList" :value="item.roleId" :key="item.roleId">{{ item.name }}</Option>
           </Select>
         </FormItem>
@@ -81,7 +81,7 @@
           </Select>
         </FormItem>
         <FormItem prop="roleId" label="角色:">
-          <Select v-model="updateAccount.roleId" @on-change="updateRoleChange" transfer size="large" style="width:100px">
+          <Select v-model="updateAccount.roleId"  transfer size="large" style="width:100px">
               <Option v-for="item in roleList" :value="item.roleId" :key="item.roleId">{{ item.name }}</Option>
           </Select>
         </FormItem>
